@@ -314,6 +314,7 @@ public class LetsBeTestersTest extends BaseTest {
         getDriver().findElement(By.id("site-search-input")).sendKeys("ipad");
         getDriver().findElement(By.id("search-button")).click();
         List<WebElement> icons = getDriver().findElements(By.xpath("//h3[contains(text(), 'iPad')]"));
+        wait.until(ExpectedConditions.visibilityOfAllElements(icons));
 
         Assert.assertEquals(icons.size(), 24);
     }
