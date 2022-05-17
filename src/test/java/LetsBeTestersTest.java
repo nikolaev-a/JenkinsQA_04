@@ -1,4 +1,6 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,7 +51,6 @@ public class LetsBeTestersTest extends BaseTest {
 
         List<WebElement> menu = getDriver().findElements(By.xpath("//li[contains(@class, 'dropdown-menu')]/a"));
         WebElement forConsumers = menu.stream().filter(el2 -> el2.getText().equals("For consumers")).findFirst().orElse(null);
-
         action.moveToElement(forConsumers).build().perform();
 
         getDriver().findElement(By.xpath("//li[@class='dropdown-submenu-item']/a[text()='Phones']")).click();
@@ -248,15 +249,11 @@ public class LetsBeTestersTest extends BaseTest {
     @Test
     public void testCheckTopMenuCategory() {
         openWebSite("http://automationpractice.com/index.php");
-        List<WebElement> GeneralPAgeTopMenuCategory = getDriver().findElements(By.cssSelector("[class*='sf-menu clearfix menu-content']>li"));
-        for (int i = 0; i < GeneralPAgeTopMenuCategory.size(); i++) {
-            GeneralPAgeTopMenuCategory = getDriver().findElements(By.cssSelector("[class*='sf-menu clearfix menu-content']>li"));
-            String generalCategoryName = GeneralPAgeTopMenuCategory.get(i).getText().trim();
-            GeneralPAgeTopMenuCategory.get(i).click();
-            String subCategoryName = getDriver().findElement(By.className("cat-name")).getText().trim();
-            Assert.assertEquals(generalCategoryName, subCategoryName);
-            getDriver().navigate().back();
-        }
+        WebElement GeneralPAgeTopMenuCategory = getDriver().findElement(By.cssSelector("[class*='sf-menu clearfix menu-content']>li:first-child"));
+        String generalCategoryName = GeneralPAgeTopMenuCategory.getText().trim();
+        GeneralPAgeTopMenuCategory.click();
+        String subCategoryName = getDriver().findElement(By.className("cat-name")).getText().trim();
+        Assert.assertEquals(generalCategoryName, subCategoryName);
     }
 
     @Ignore
@@ -290,6 +287,105 @@ public class LetsBeTestersTest extends BaseTest {
         }
     }
 
+    @Test
+    public void testDemoQAButtons() {
+
+        getDriver().get("https://demoqa.com/");
+
+        getDriver().findElement(By.xpath("//h5[text()='Elements']")).click();
+
+        getDriver().findElement(By.xpath("//li[@id='item-4']")).click();
+
+        Actions action = new Actions(getDriver());
+
+        action.doubleClick(getDriver().findElement(By.xpath("//button[@id='doubleClickBtn']"))).build().perform();
+        action.contextClick(getDriver().findElement(By.xpath("//button[@id='rightClickBtn']"))).build().perform();
+        action.click(getDriver().findElement(By.xpath("//button[text() = 'Click Me']"))).build().perform();
+
+        List<WebElement> actual = getDriver().findElements(By.xpath("//div/p"));
+
+        List<String> expected = Arrays.asList("You have done a double click", "You have done a right click", "You have done a dynamic click");
+
+        for (int i = 0; i < expected.size(); i++) {
+            Assert.assertEquals(actual.get(i).getText(), expected.get(i));
+        }
+    }
+
+    @Test
+    public void testDemoQAWebTables() {
+
+        getDriver().get("https://demoqa.com/");
+
+        getDriver().findElement(By.xpath("//h5[text()='Elements']")).click();
+
+        getDriver().findElement(By.xpath("//li[@id='item-3']")).click();
+
+        getDriver().findElement(By.id("addNewRecordButton")).click();
+
+        getDriver().findElement(By.id("firstName")).sendKeys("Anna");
+        getDriver().findElement(By.id("lastName")).sendKeys("Ivanov");
+        getDriver().findElement(By.id("userEmail")).sendKeys("test@test.com");
+        getDriver().findElement(By.id("age")).sendKeys("35");
+        getDriver().findElement(By.id("salary")).sendKeys("100000");
+        getDriver().findElement(By.id("department")).sendKeys("QA");
+
+        getDriver().findElement(By.id("submit")).click();
+
+        getDriver().findElement(By.id("searchBox")).sendKeys("Anna");
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[text() = 'Anna']")).getText(), "Anna");
+
+    }
+
+    @Test
+    public void testDemoQAValidImage() {
+
+        getDriver().get("https://demoqa.com/");
+
+        getDriver().findElement(By.xpath("//h5[text()='Elements']")).click();
+
+        getDriver().findElement(By.xpath("//li[@id='item-6']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("(//div/img)[1]")).isDisplayed());
+    }
+
+    @Test
+    public void testDemoQAInteractionsDroppable() throws InterruptedException {
+
+        getDriver().get("https://demoqa.com/");
+
+        getDriver().findElement(By.xpath("//h5[text()='Interactions']")).click();
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        WebElement element = getDriver().findElement(By.xpath("(//li[@id='item-3'])[4]"));
+        js.executeScript("arguments[0].scrollIntoView();", element);
+        element.click();
+
+        Thread.sleep(1000);
+
+        Actions action = new Actions(getDriver());
+
+        action.dragAndDrop(getDriver().findElement(By.id("draggable")), getDriver().findElement(By.id("droppable"))).build().perform();
+
+        Assert.assertEquals(getDriver().findElement(By.id("droppable")).getText(), "Dropped!");
+    }
+
+    @Test
+    public void testDemoQAAlertAccept() {
+
+        getDriver().get("https://demoqa.com/");
+
+        getDriver().findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']")).click();
+
+        getDriver().findElement(By.xpath("(//li[@id='item-1'])[2]")).click();
+
+        getDriver().findElement(By.id("confirmButton")).click();
+
+        Alert alert = getDriver().switchTo().alert();
+        alert.accept();
+
+        Assert.assertEquals(getDriver().findElement(By.id("confirmResult")).getText(), "You selected Ok");
+    }
     @Test
     public void testMallCheckSearch() {
 
