@@ -11,6 +11,7 @@ public class DmitriyTwoTest extends BaseTest {
     @Test
     public void testDmitriyRudoi () throws InterruptedException {
         getDriver().get("https://www.nord.com/ua/home-ua.jsp");
+        Thread.sleep(2000);
 
         WebElement searchButton =
                 getDriver().findElement(By.id("dropdown"));//"//*[@id=\"pl-navbar__main\"]/ul[1]/li[5]"));
