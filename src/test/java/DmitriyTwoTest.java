@@ -20,7 +20,7 @@ public class DmitriyTwoTest extends BaseTest {
         WebElement searchBox = getDriver().findElement(By.name("q"));
         searchBox.sendKeys("g1050");
         WebElement goButton =
-                getDriver().findElement(By.xpath("//*[@id=\"pl-navbar__main\"]/ul[1]/li[5]/ul/form/button"));
+                getDriver().findElement(By.xpath("//*[@class='btn btn-lg js-submit-search pl-navbar__search-submit ']"));
         Thread.sleep(1000);
         goButton.click();
 
