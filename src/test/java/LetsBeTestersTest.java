@@ -1,5 +1,4 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +10,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -291,4 +291,51 @@ public class LetsBeTestersTest extends BaseTest {
         }
     }
 
+    @Test
+    public void testMallCheckSearch() {
+
+        openWebSite("https://www.mall.sk/");
+
+        getDriver().findElement(By.id("site-search-input")).sendKeys("ipad");
+        getDriver().findElement(By.id("search-button")).click();
+        List<WebElement> models = getDriver().findElements(By.xpath("//a[@data-testid = 'category-menu-item']"));
+
+        List<String> expectedResult = Arrays.asList("Ipad 2021", "Ipad air", "Apple ipad", "Ipad pro", "Ipad mini", "Ipad 10.2", "Ipad 8", "Ipad 2019", "Ipad 9.7");
+        for (int i = 0; i < models.size(); i++) {
+            Assert.assertEquals(models.get(i).getText(), expectedResult.get(i));
+        }
+    }
+
+    @Test
+    public void testMallCheckCountIcons() {
+
+        openWebSite("https://www.mall.sk/");
+
+        getDriver().findElement(By.id("site-search-input")).sendKeys("ipad");
+        getDriver().findElement(By.id("search-button")).click();
+        List<WebElement> icons = getDriver().findElements(By.xpath("//h3[contains(text(), 'iPad')]"));
+
+        Assert.assertEquals(icons.size(), 24);
+    }
+
+    @Test
+    public void testMallCheckSortingPricesDown(){
+
+        openWebSite("https://www.mall.sk/");
+
+        getDriver().findElement(By.id("site-search-input")).sendKeys("ipad");
+        getDriver().findElement(By.id("search-button")).click();
+        getDriver().findElement(By.xpath("//a[@data-sel = 'cta_sort_by_lowest_price']")).click();
+
+        List<WebElement> elements = getDriver().findElements(By.xpath("//span[@class = 'product-price__price']"));
+
+        Double[] price = new Double[elements.size()];
+        for (int i = 0; i < elements.size(); i++) {
+            price[i] = Double.parseDouble(elements.get(i).getText().replace(" €", "").replace(",", "."));
+        }
+
+        for (int i = 0; i < elements.size() - 1; i++) {
+            Assert.assertTrue(price[i] <= price[i + 1]);
+        }
+    }
 }
