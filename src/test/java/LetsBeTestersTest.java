@@ -10,7 +10,6 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
