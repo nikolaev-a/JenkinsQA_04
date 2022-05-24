@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class GroupDreamTeamJavaTest extends BaseTest {
 
     @Test
-    public void testFelix_IX(){
+    public void testFelix_IX() {
 
         getDriver().get("https://habr.com/ru/all/");
 
@@ -24,15 +25,15 @@ public class GroupDreamTeamJavaTest extends BaseTest {
         getDriver().findElement(By.className("tm-input-text-decorated__input"))
                 .sendKeys("XPath\n");
 
-        ((JavascriptExecutor)getDriver()).executeScript("scroll(0, 2000);");
+        ((JavascriptExecutor) getDriver()).executeScript("scroll(0, 2000);");
         getDriver().findElement(By.xpath("//span[contains(text(),'Вот почему мы всегда пишем селекторы на ')]"))
                 .click();
 
-        WebElement actualResult =  getDriver().findElement(By.xpath("//h1[@class='tm-article-snippet__title tm-article-snippet__title_h1']"));
+        WebElement actualResult = getDriver().findElement(By.xpath("//h1[@class='tm-article-snippet__title tm-article-snippet__title_h1']"));
         Assert.assertEquals(actualResult.getText(), "Вот почему мы всегда пишем селекторы на XPath");
     }
 
-     @Test
+    @Test
     public void findAuto_AliaksandrD() {
         getDriver().get("https://av.by");
         WebDriverWait wait = new WebDriverWait(getDriver(), 10);
@@ -60,22 +61,70 @@ public class GroupDreamTeamJavaTest extends BaseTest {
         Assert.assertEquals(title[1] + " " + title[2], "Audi 80");
     }
 
-    private static final String SWIVL_URL = "https://cloud.swivl.com/login";
-    private static final String EMAIL = "123@123";
-    private static final String PASSWORD = "123123";
+    private final void openTransportMenu(){
+        try {getDriver().get("https://av.by");
+            Actions actionProvider = new Actions(getDriver());
+            actionProvider.moveToElement(getDriver().findElement(By.xpath("//a[@href='https://cars.av.by']"))).build().perform();
+        } catch (Exception e){
+            System.out.println("Menu is not opened");
+        }
+    }
 
     @Test
-    public void swivlMariaShyTest(){
+    public void checkNewAutoFromTransportMenuTest() {
+        openTransportMenu();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='https://salon.av.by']/span")).getText(), "Новые автомобили");
+    }
 
-        getDriver().get(SWIVL_URL);
+    @Test
+    public void checkCarsAutoFromTransportMenuTest() {
+        openTransportMenu();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='https://cars.av.by' and @class='nav__dropdown-link']/span")).getText(), "Автомобили с пробегом");
+    }
+
+    @Test
+    public void checkTracksAutoFromTransportMenuTest() {
+        openTransportMenu();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='https://truck.av.by']/span")).getText(), "Грузовой транспорт");
+    }
+
+    @Test
+    public void checkMotoAutoFromTransportMenuTest() {
+        openTransportMenu();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='https://moto.av.by']/span")).getText(), "Мототехника");
+    }
+    @Test
+    public void checkAgroAutoFromTransportMenuTest() {
+        openTransportMenu();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//a[@href='https://agro.av.by']/span")).getText(), "Сельхозтехника");
+    }
+
+    @Test
+    public void swivlMariaShyTest() {
+        getDriver().get("https://cloud.swivl.com/login");
         getDriver().manage().deleteAllCookies();
 
-        getDriver().findElement(By.id("username")).sendKeys(EMAIL);
-        getDriver().findElement(By.id("password")).sendKeys(PASSWORD);
-        getDriver().findElement(By.id("_submit")).click(); //submit with invalid login
+        getDriver().findElement(By.id("username")).sendKeys("123@123");
+        getDriver().findElement(By.id("password")).sendKeys("123123");
+        getDriver().findElement(By.id("_submit")).click();
 
-        String invalid = getDriver().findElement(By.xpath("/html/body/div/div[2]/div[2]/div[2]/div/form/p"))
-                .getText();
-        Assert.assertEquals(invalid,"Invalid CSRF token.");
+        WebElement invalidToken = getDriver().findElement(
+                By.xpath("/html/body/div/div[2]/div[2]/div[2]/div/form/p"));
+        Assert.assertEquals(invalidToken.getText(), "Invalid CSRF token.");
     }
+
+    @Test
+    public void testDinarGizSearch() throws InterruptedException {
+        getDriver().get("https://stepik.org/catalog");
+        getDriver().findElement(By.xpath("//div/input[@class='search-form__input ']")).sendKeys("Java");
+
+        Thread.sleep(1000);
+
+        getDriver().findElement(By.xpath("//div/button[@class = 'button_with-loader search-form__submit']")).click();
+
+        String currentUrl = getDriver().getCurrentUrl();
+        Assert.assertEquals(currentUrl, "https://stepik.org/catalog");
+
+    }
+
 }
