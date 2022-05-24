@@ -8,6 +8,7 @@ public class VictoriaTest extends BaseTest {
 
     @Test
     public void CourseraTest() {
+
         String SearchBoxXpath = "//div[@class='react-autosuggest__container']//input";
         String search = "//button[2][@aria-label=\"Submit Search\"]//div[@class=\"magnifier-wrapper\"]";
 
