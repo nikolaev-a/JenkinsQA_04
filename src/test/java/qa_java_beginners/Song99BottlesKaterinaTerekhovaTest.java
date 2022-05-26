@@ -1,6 +1,9 @@
 package qa_java_beginners;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -10,7 +13,7 @@ import java.util.Arrays;
 public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
 
     @Test
-    public void testSongLyricsTest(){
+    public void testSongLyricsTest() {
 
         String expectedResult = "99 bottles of beer on the wall, 99 bottles of beer.\n" +
                 "Take one down and pass it around, 98 bottles of beer on the wall.98 bottles of beer on the wall, 98 bottles of beer.\n" +
@@ -121,17 +124,55 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
                                 "/li/a[@href='lyrics.html']")).click();
 
         String[] pText = new String[100];
-        for(int i = 0; i < pText.length; i++){
+        for (int i = 0; i < pText.length; i++) {
             int index = i + 1;
             pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']" +
                     "/p[" + index + "]")).getText();
         }
 
         String actualResult = "";
-        for(int i = 0; i < pText.length; i++){
+        for (int i = 0; i < pText.length; i++) {
             actualResult = actualResult + pText[i];
         }
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-}
+
+        /**
+         *TC_12_01 Подтвердите, что в меню BROWSE LANGUAGES, подменю  J, пользователь может найти описание страницы,
+         * на которой перечеслены все программные языки, начинающиеся с буквы J,  отсортированные по названию
+         */
+
+        @Test
+        public void testGetJLanguages() {
+
+            String chromeDriver = "webdriver.chrome.driver";
+            String driverPath = "/C:/Users/Королевна/chromedriver_win32/chromedriver.exe";
+            String url = "http://www.99-bottles-of-beer.net";
+
+            String expectedResultSentence = "All languages starting with the letter J are shown, sorted by Language.";
+
+            System.setProperty(chromeDriver, driverPath);
+            WebDriver driver = new ChromeDriver();
+            driver.get(url);
+
+            WebElement button = driver.
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                            "/ul[@id='menu']/li/a[@href='/abc.html']")
+                    );
+            button.click();
+
+            WebElement buttonJ = driver.
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                            "/ul[@id='submenu']/li/a[@href='j.html']")
+                    );
+            buttonJ.click();
+
+            WebElement sentence = driver.findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p"));
+
+            String actualResultSentence = sentence.getText();
+            Assert.assertEquals(actualResultSentence,expectedResultSentence);
+            driver.quit();
+        }
+    }
+
