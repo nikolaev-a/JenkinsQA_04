@@ -144,6 +144,7 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
          */
 
         @Test
+
         public void testGetJLanguages() {
 
             String chromeDriver = "webdriver.chrome.driver";
@@ -174,5 +175,42 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
             Assert.assertEquals(actualResultSentence,expectedResultSentence);
             driver.quit();
         }
+    /**
+     * TC_12_02 Подтвердите, что в меню BROWSE LANGUAGES, подменю  M, последний программный язык в таблице -  MySQL
+     */
+
+    @Test
+    public void testApprovalLanguage(){
+        String ChromeDriver = "webdriver.chrome.driver";
+        String driverPath = "/C:/Users/Королевна/chromedriver_win32/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net";
+
+        String expectedResulastLanguage = "MySQL";
+
+        System.setProperty(ChromeDriver,driverPath);
+        WebDriver driver = new ChromeDriver();
+        driver.get(url);
+
+        WebElement button = driver.
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                        "/ul[@id='menu']/li/a[@href='/abc.html']")
+                );
+        button.click();
+
+        WebElement buttonM = driver.
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                        "/ul[@id='submenu']/li/a[@href='m.html']")
+                );
+        buttonM.click();
+
+        WebElement lastLanguage = driver.
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table[@id='category']" +
+                        "/tbody/tr/td/a[@href='language-mysql-1252.html']"));
+
+        String actualResultLastLanguage = lastLanguage.getText();
+
+        Assert.assertEquals(actualResultLastLanguage, expectedResulastLanguage);
+        driver.quit();
     }
+}
 
