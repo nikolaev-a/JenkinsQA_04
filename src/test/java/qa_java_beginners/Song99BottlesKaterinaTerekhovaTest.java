@@ -126,14 +126,12 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
             pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']" +
                     "/p[" + index + "]")).getText();
         }
-        System.out.println(Arrays.toString(pText));
 
         String actualResult = "";
         for(int i = 0; i < pText.length; i++){
             actualResult = actualResult + pText[i];
         }
-        System.out.println(actualResult);
+
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 }
