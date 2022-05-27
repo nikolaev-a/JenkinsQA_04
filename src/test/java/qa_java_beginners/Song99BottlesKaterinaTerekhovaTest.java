@@ -147,33 +147,24 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
 
         public void testGetJLanguages() {
 
-            String chromeDriver = "webdriver.chrome.driver";
-            String driverPath = "/C:/Users/Королевна/chromedriver_win32/chromedriver.exe";
-            String url = "http://www.99-bottles-of-beer.net";
-
             String expectedResultSentence = "All languages starting with the letter J are shown, sorted by Language.";
 
-            System.setProperty(chromeDriver, driverPath);
-            WebDriver driver = new ChromeDriver();
-            driver.get(url);
+            getDriver().get("http://www.99-bottles-of-beer.net");
 
-            WebElement button = driver.
+           getDriver().
                     findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
-                            "/ul[@id='menu']/li/a[@href='/abc.html']")
-                    );
-            button.click();
+                            "/ul[@id='menu']/li/a[@href='/abc.html']")).click();
 
-            WebElement buttonJ = driver.
+            getDriver().
                     findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
-                            "/ul[@id='submenu']/li/a[@href='j.html']")
-                    );
-            buttonJ.click();
+                            "/ul[@id='submenu']/li/a[@href='j.html']")).click();
 
-            WebElement sentence = driver.findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p"));
+            WebElement sentence = getDriver().
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p"));
 
             String actualResultSentence = sentence.getText();
             Assert.assertEquals(actualResultSentence,expectedResultSentence);
-            driver.quit();
+
         }
     /**
      * TC_12_02 Подтвердите, что в меню BROWSE LANGUAGES, подменю  M, последний программный язык в таблице -  MySQL
@@ -181,36 +172,26 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
 
     @Test
     public void testApprovalLanguage(){
-        String ChromeDriver = "webdriver.chrome.driver";
-        String driverPath = "/C:/Users/Королевна/chromedriver_win32/chromedriver.exe";
-        String url = "http://www.99-bottles-of-beer.net";
 
         String expectedResulastLanguage = "MySQL";
 
-        System.setProperty(ChromeDriver,driverPath);
-        WebDriver driver = new ChromeDriver();
-        driver.get(url);
+        getDriver().get("http://www.99-bottles-of-beer.net");
 
-        WebElement button = driver.
+        getDriver().
                 findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
-                        "/ul[@id='menu']/li/a[@href='/abc.html']")
-                );
-        button.click();
+                        "/ul[@id='menu']/li/a[@href='/abc.html']")).click();
 
-        WebElement buttonM = driver.
+        getDriver().
                 findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
-                        "/ul[@id='submenu']/li/a[@href='m.html']")
-                );
-        buttonM.click();
-
-        WebElement lastLanguage = driver.
+                        "/ul[@id='submenu']/li/a[@href='m.html']")).click();
+        WebElement lastLanguage = getDriver().
                 findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table[@id='category']" +
                         "/tbody/tr/td/a[@href='language-mysql-1252.html']"));
 
         String actualResultLastLanguage = lastLanguage.getText();
 
         Assert.assertEquals(actualResultLastLanguage, expectedResulastLanguage);
-        driver.quit();
+
     }
 }
 
