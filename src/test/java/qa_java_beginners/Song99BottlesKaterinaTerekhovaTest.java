@@ -199,6 +199,7 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
      */
     @Test
     public void testApprovalTable(){
+
         String expectedResultFirstColumn = "Language, Author, Date, Comments, Rate";
 
         getDriver().get("https://www.99-bottles-of-beer.net");
@@ -211,7 +212,40 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
 
         String actualResultFirstColumn = nameFirstColumn.getText();
 
-        Assert.assertEquals(actualResultFirstColumn,expectedResultFirstColumn.replace(",",""));
+        Assert.assertEquals(actualResultFirstColumn, expectedResultFirstColumn.replace(",",""));
+    }
+
+    /**
+     * TC_12_04 Подтвердите, что создатель решения на языке Mathematica - Brenton Bostick,
+     * дата обновления решения на этом языке - 03/16/06, и что это решение имеет 1 комментарий
+     */
+    @Test
+    public void testConfirmInfo(){
+
+        String expectedResultAuthor = "Brenton Bostick";
+        String expectedResultDate = "03/16/06";
+        String expectedResultComments = "1";
+
+        getDriver().get("https://www.99-bottles-of-beer.net/");
+        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']")).click();
+        getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table[@id='category']" +
+                        "/tbody/tr/td/a[@href='language-mathematica-1090.html']")).click();
+        WebElement infoAuthor = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[2]/td[2]"));
+        WebElement infoDate = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[1]/td[2]"));
+        WebElement infoComments = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[4]/td[2]"));
+
+        String actualResultConfirmAuthor = infoAuthor.getText();
+        String actualResultConfirmDate = infoDate.getText();
+        String actualResultConfirmComments = infoComments.getText();
+
+        Assert.assertEquals(actualResultConfirmAuthor,expectedResultAuthor);
+        Assert.assertEquals(actualResultConfirmDate,expectedResultDate);
+        Assert.assertEquals(actualResultConfirmComments,expectedResultComments);
     }
 }
 
