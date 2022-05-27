@@ -31,4 +31,19 @@ public class GalaKonHW12Song99BottlesTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    /**
+     * Подтвердите, что в меню BROWSE LANGUAGES, подменю  M, последний программный язык в таблице -  MySQL
+     * Шаги:
+     * Открыть базовую страницу
+     * Нажать на пункт меню BROWSE LANGUAGES
+     * Нажать на подменю M
+     * Подтвердить, что последний язык программирования на странице - MySQL
+     */
+    @Test
+    public void test() throws InterruptedException {
+
+        String expectedResult = "";
+
+    }
+
 }
