@@ -166,5 +166,19 @@ public class Song99BottlesJuliaChTest extends BaseTest {
 
         Assert.assertEquals(text.getText(), expectedResult);
     }
+
+    @Test
+    public void testTitleOfTable() {
+
+        String expectedResult = "Language Author Date Comments Rate";
+
+        getDriver().get("http://www.99-bottles-of-beer.net/");
+
+        getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                "/ul[@id='menu']/li/a[@href='/abc.html']")).click();
+        WebElement table = getDriver().findElement(By.xpath("//div[@id='main']/table//tr"));
+
+        Assert.assertEquals(table.getText(), expectedResult);
+    }
 }
 
