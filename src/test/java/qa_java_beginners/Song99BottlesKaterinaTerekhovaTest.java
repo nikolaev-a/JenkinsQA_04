@@ -193,5 +193,25 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
         Assert.assertEquals(actualResultLastLanguage, expectedResulastLanguage);
 
     }
+    /**
+     * TC_12_03 Подтвердите, что в меню BROWSE LANGUAGES существует таблица с заголовками
+     * Language, Author, Date, Comments, Rate
+     */
+    @Test
+    public void testApprovalTable(){
+        String expectedResultFirstColumn = "Language, Author, Date, Comments, Rate";
+
+        getDriver().get("https://www.99-bottles-of-beer.net");
+
+        getDriver().
+                findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+
+        WebElement nameFirstColumn = getDriver().
+                findElement(By.xpath("//div[@id='main']/table[@id='category']/tbody/tr"));
+
+        String actualResultFirstColumn = nameFirstColumn.getText();
+
+        Assert.assertEquals(actualResultFirstColumn,expectedResultFirstColumn.replace(",",""));
+    }
 }
 
