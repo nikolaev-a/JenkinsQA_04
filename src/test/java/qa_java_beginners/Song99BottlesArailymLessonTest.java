@@ -5,10 +5,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class Song99BottlesOlgaSTest extends BaseTest {
+public class Song99BottlesArailymLessonTest extends BaseTest {
 
     @Test
-    public void testSongLirycs() {
+    public void testLyricsText() throws InterruptedException {
 
         String expectedResult = "99 bottles of beer on the wall, 99 bottles of beer.\n" +
                 "Take one down and pass it around, 98 bottles of beer on the wall.98 bottles of beer on the wall, 98 bottles of beer.\n" +
@@ -113,46 +113,46 @@ public class Song99BottlesOlgaSTest extends BaseTest {
                 "Go to the store and buy some more, 99 bottles of beer on the wall.";
 
         getDriver().get("http://www.99-bottles-of-beer.net/lyrics.html");
-
         getDriver()
                 .findElement(
-                        By.xpath(
-                                "//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']/li/a[@href='lyrics.html']"
-                        )).click();
+                        By.xpath("//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']/li/a[@href='lyrics.html']")
+                ).click();
+
+//        WebElement[] elementsArray = new WebElement[100];
+//
+//        for (int i = 0; i < elementsArray.length; i++){
+//            int index = i + 1;
+//            elementsArray[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]"));
+//        }
 
         String[] pText = new String[100];
-        for (int i = 0; i < pText.length; i++) {
+
+        for (int i = 0; i < pText.length; i++){
             int index = i + 1;
-            pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]"))
-                    .getText();
+            pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]")).getText();
         }
+
 
         String actualResult = "";
-        for (int i = 0; i < pText.length; i++) {
-            actualResult += pText[i];
+        for(int i = 0; i <pText.length; i++){
+            actualResult = actualResult + pText[i];
         }
 
-        Assert.assertEquals(actualResult, expectedResult);
-    }
-
-    @Test
-    public void testMenuBrowseLanguages() {
-
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-
-        String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
-
-        getDriver().findElement(By.xpath("//ul[@id='menu']//a[@href='/abc.html']"))
-                .click();
-
-        getDriver().findElement(By.xpath("//ul[@id='submenu']//a[@href='j.html']"))
-                .click();
-
-        String actualResult = getDriver().findElement(By.xpath("//div[@id='wrap']/div[@id='main']/p[string(.)]"))
-                .getText();
+        System.out.println(actualResult);
 
         Assert.assertEquals(actualResult, expectedResult);
+
+
+
+
+
+//        String songText = text.getText();
+//        System.out.println(songText);
+
+
+
+
     }
+
+
 }
-
-

@@ -1,14 +1,19 @@
 package qa_java_beginners;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class Song99BottlesOlgaSTest extends BaseTest {
+import java.util.Arrays;
+
+public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
 
     @Test
-    public void testSongLirycs() {
+    public void testSongLyricsTest() {
 
         String expectedResult = "99 bottles of beer on the wall, 99 bottles of beer.\n" +
                 "Take one down and pass it around, 98 bottles of beer on the wall.98 bottles of beer on the wall, 98 bottles of beer.\n" +
@@ -112,47 +117,135 @@ public class Song99BottlesOlgaSTest extends BaseTest {
                 "Take one down and pass it around, no more bottles of beer on the wall.No more bottles of beer on the wall, no more bottles of beer.\n" +
                 "Go to the store and buy some more, 99 bottles of beer on the wall.";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/lyrics.html");
-
-        getDriver()
-                .findElement(
-                        By.xpath(
-                                "//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']/li/a[@href='lyrics.html']"
-                        )).click();
+        getDriver().get("https://www.99-bottles-of-beer.net/lyrics.html");
+        getDriver().
+                findElement
+                        (By.xpath("//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']" +
+                                "/li/a[@href='lyrics.html']")).click();
 
         String[] pText = new String[100];
         for (int i = 0; i < pText.length; i++) {
             int index = i + 1;
-            pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]"))
-                    .getText();
+            pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']" +
+                    "/p[" + index + "]")).getText();
         }
 
         String actualResult = "";
         for (int i = 0; i < pText.length; i++) {
-            actualResult += pText[i];
+            actualResult = actualResult + pText[i];
         }
 
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+        /**
+         *TC_12_01 Подтвердите, что в меню BROWSE LANGUAGES, подменю  J, пользователь может найти описание страницы,
+         * на которой перечеслены все программные языки, начинающиеся с буквы J,  отсортированные по названию
+         */
+
+        @Test
+
+        public void testGetJLanguages() {
+
+            String expectedResultSentence = "All languages starting with the letter J are shown, sorted by Language.";
+
+            getDriver().get("http://www.99-bottles-of-beer.net");
+
+           getDriver().
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                            "/ul[@id='menu']/li/a[@href='/abc.html']")).click();
+
+            getDriver().
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                            "/ul[@id='submenu']/li/a[@href='j.html']")).click();
+
+            WebElement sentence = getDriver().
+                    findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p"));
+
+            String actualResultSentence = sentence.getText();
+            Assert.assertEquals(actualResultSentence,expectedResultSentence);
+
+        }
+    /**
+     * TC_12_02 Подтвердите, что в меню BROWSE LANGUAGES, подменю  M, последний программный язык в таблице -  MySQL
+     */
+
     @Test
-    public void testMenuBrowseLanguages() {
+    public void testApprovalLanguage(){
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        String expectedResulastLanguage = "MySQL";
 
-        String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
+        getDriver().get("http://www.99-bottles-of-beer.net");
 
-        getDriver().findElement(By.xpath("//ul[@id='menu']//a[@href='/abc.html']"))
-                .click();
+        getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                        "/ul[@id='menu']/li/a[@href='/abc.html']")).click();
 
-        getDriver().findElement(By.xpath("//ul[@id='submenu']//a[@href='j.html']"))
-                .click();
+        getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='navigation']" +
+                        "/ul[@id='submenu']/li/a[@href='m.html']")).click();
+        WebElement lastLanguage = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table[@id='category']" +
+                        "/tbody/tr/td/a[@href='language-mysql-1252.html']"));
 
-        String actualResult = getDriver().findElement(By.xpath("//div[@id='wrap']/div[@id='main']/p[string(.)]"))
-                .getText();
+        String actualResultLastLanguage = lastLanguage.getText();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResultLastLanguage, expectedResulastLanguage);
+
+    }
+    /**
+     * TC_12_03 Подтвердите, что в меню BROWSE LANGUAGES существует таблица с заголовками
+     * Language, Author, Date, Comments, Rate
+     */
+    @Test
+    public void testApprovalTable(){
+
+        String expectedResultFirstColumn = "Language, Author, Date, Comments, Rate";
+
+        getDriver().get("https://www.99-bottles-of-beer.net");
+
+        getDriver().
+                findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+
+        WebElement nameFirstColumn = getDriver().
+                findElement(By.xpath("//div[@id='main']/table[@id='category']/tbody/tr"));
+
+        String actualResultFirstColumn = nameFirstColumn.getText();
+
+        Assert.assertEquals(actualResultFirstColumn, expectedResultFirstColumn.replace(",",""));
+    }
+
+    /**
+     * TC_12_04 Подтвердите, что создатель решения на языке Mathematica - Brenton Bostick,
+     * дата обновления решения на этом языке - 03/16/06, и что это решение имеет 1 комментарий
+     */
+    @Test
+    public void testConfirmInfo(){
+
+        String expectedResultAuthor = "Brenton Bostick";
+        String expectedResultDate = "03/16/06";
+        String expectedResultComments = "1";
+
+        getDriver().get("https://www.99-bottles-of-beer.net/");
+        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']")).click();
+        getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table[@id='category']" +
+                        "/tbody/tr/td/a[@href='language-mathematica-1090.html']")).click();
+        WebElement infoAuthor = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[2]/td[2]"));
+        WebElement infoDate = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[1]/td[2]"));
+        WebElement infoComments = getDriver().
+                findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/table/tbody/tr[4]/td[2]"));
+
+        String actualResultConfirmAuthor = infoAuthor.getText();
+        String actualResultConfirmDate = infoDate.getText();
+        String actualResultConfirmComments = infoComments.getText();
+
+        Assert.assertEquals(actualResultConfirmAuthor,expectedResultAuthor);
+        Assert.assertEquals(actualResultConfirmDate,expectedResultDate);
+        Assert.assertEquals(actualResultConfirmComments,expectedResultComments);
     }
 }
-
 

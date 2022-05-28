@@ -169,5 +169,4 @@ public class GalaKonHW12Song99BottlesTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 }
