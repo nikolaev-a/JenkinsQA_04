@@ -1,10 +1,12 @@
 package qa_java_beginners;
 
+import org.apache.commons.io.input.TeeInputStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.IExpectedExceptionsHolder;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -247,5 +249,27 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
         Assert.assertEquals(actualResultConfirmDate,expectedResultDate);
         Assert.assertEquals(actualResultConfirmComments,expectedResultComments);
     }
+    /**
+     * TC_12_05 Подтвердите, что на сайте существует 10 языков, названия которых начинаются с цифр.
+     */
+
+    @Test
+    public void testConfirmationOfLanguages(){
+
+        int expectedResultAmountLanguages = 10;
+
+        getDriver().get("https://www.99-bottles-of-beer.net/abc.html");
+        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='0.html']")).click();
+
+        String[] actualResultAmountLanguages = new String[10];
+        for(int i = 0; i < actualResultAmountLanguages.length; i++){
+            actualResultAmountLanguages[i] = getDriver().
+                    findElement
+                            (By.xpath("//div[@id='main']/table[@id='category']/tbody" +
+                                    "/tr[@onmouseover]["+ (i + 1) +"]")).getText();
+            }
+        Assert.assertEquals(actualResultAmountLanguages.length, expectedResultAmountLanguages);
+    }
+
 }
 
