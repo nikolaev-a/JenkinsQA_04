@@ -271,5 +271,9 @@ public class Song99BottlesKaterinaTerekhovaTest extends BaseTest {
         Assert.assertEquals(actualResultAmountLanguages.length, expectedResultAmountLanguages);
     }
 
+    /**
+     *
+     */
+
 }
 
