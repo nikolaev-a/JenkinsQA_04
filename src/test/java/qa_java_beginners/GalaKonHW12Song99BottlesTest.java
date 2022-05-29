@@ -164,8 +164,8 @@ public class GalaKonHW12Song99BottlesTest extends BaseTest {
         String actualResult = getDriver(
         ).findElement(
                 By.xpath(
-                "//p[@style='border: 1px solid red; background-color: #ffe0e0; padding: 5px; margin: 5px 10px 5px 10px;']"
-        )).getText();
+                        "//p[@style='border: 1px solid red; background-color: #ffe0e0; padding: 5px; margin: 5px 10px 5px 10px;']"
+                )).getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
