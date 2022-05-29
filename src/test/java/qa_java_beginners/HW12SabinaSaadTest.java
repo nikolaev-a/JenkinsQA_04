@@ -2,6 +2,7 @@ package qa_java_beginners;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -9,6 +10,7 @@ public class HW12SabinaSaadTest extends BaseTest {
 
     public static String URL = "http://www.99-bottles-of-beer.net/";
 
+    @Ignore
     @Test(invocationCount = 20)
     public void testSubMenuJBrowseLanguages() {
         String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
