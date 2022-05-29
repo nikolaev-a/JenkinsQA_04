@@ -20,6 +20,6 @@ public class HW12SabinaSaadTest extends BaseTest {
         getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='j.html']")).click();
         String actualResult = getDriver().findElement(By.xpath("//div/div[@id='main']/p")).getText();
 
-        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
