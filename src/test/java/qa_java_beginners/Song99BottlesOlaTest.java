@@ -1,17 +1,14 @@
 package qa_java_beginners;
 
 import org.openqa.selenium.By;
-
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-
-public class Song99BottlesViktoriiaKarpusTest extends BaseTest {
+public class Song99BottlesOlaTest extends BaseTest {
 
     @Test
-    public void testLyricsText() {
+    public void testSongLyricsText() {
 
         String expectedResult = "99 bottles of beer on the wall, 99 bottles of beer.\n" +
                 "Take one down and pass it around, 98 bottles of beer on the wall.98 bottles of beer on the wall, 98 bottles of beer.\n" +
@@ -115,142 +112,24 @@ public class Song99BottlesViktoriiaKarpusTest extends BaseTest {
                 "Take one down and pass it around, no more bottles of beer on the wall.No more bottles of beer on the wall, no more bottles of beer.\n" +
                 "Go to the store and buy some more, 99 bottles of beer on the wall.";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/lyrics.html");
+        getDriver().get("https://www.99-bottles-of-beer.net/lyrics.html");
 
-        getDriver().
-                findElement(
-                        By.xpath("//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']/li/" +
-                                "a[@href='lyrics.html']")
-                )
-                .click();
+        getDriver().findElement(
+                By.xpath("//body/div[@id='wrap']/div[@id='navigation']/ul[@id='submenu']/li/a[@href='lyrics.html']"
+                )).click();
 
-        String[] pText = new String[100];
-        for (int i = 0; i < pText.length; i++) {
-            int index = i + 1;
-            pText[i] = getDriver().findElement(By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]"))
-                    .getText();
+        String[] songText = new String[100];
+        for (int i = 0; i < songText.length; i++) {
+             int index = i + 1;
+            songText[i] = getDriver().findElement
+                    (By.xpath("//body/div[@id='wrap']/div[@id='main']/p[" + index + "]")).getText();
         }
 
         String actualResult = "";
-        for (int i = 0; i < pText.length; i++) {
-            actualResult = actualResult + pText[i];
+        for (int i = 0; i < songText.length; i++) {
+            actualResult = actualResult + songText[i];
         }
-
-        System.out.println(actualResult);
-
         Assert.assertEquals(actualResult, expectedResult);
-
-    }
-
-    @Test
-    public void testTitle12_03() {
-
-        String expectedResult = "LanguageAuthorDateCommentsRate";
-
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-        getDriver().findElement(By.xpath("//li/a[@href='/abc.html']")).click();
-        getDriver().findElement(By.xpath("//tr/th")).getText();
-
-        String[] tableTitles = new String[5];
-        for (int i = 0; i < tableTitles.length; i++) {
-            int index = i + 1;
-            tableTitles[i] = getDriver().findElement(By.xpath("//tr/th[" + index + "]")).getText();
-        }
-
-        String actualResult = "";
-        for (int i = 0; i < tableTitles.length; i++) {
-            actualResult = actualResult + tableTitles[i];
-        }
-
-        Assert.assertEquals(actualResult, expectedResult);
-
-    }
-
-    @Test
-    public void testAreAllLanguagesStartingWithTheLetterJInMenuBrowseLanguages() {
-
-        String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
-
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
-        getDriver().findElement(By.xpath("//li/a[@href='j.html']")).click();
-
-        WebElement textMenu = getDriver().findElement(By.xpath("//div[@id='main']/p[1]"));
-
-        Assert.assertEquals(textMenu.getText(), expectedResult);
-
-    }
-
-    @Test
-    public void testTheLastProgramLanguageIsMySQl() {
-        String expectedResult = "MySQL";
-
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
-        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']")).click();
-
-        WebElement theLastLanguage = getDriver().findElement(By.xpath("//tr/td/a[@href='language-mysql-1252.html']"));
-
-        Assert.assertEquals(theLastLanguage.getText(), expectedResult);
-
-    }
-
-    @Test
-    public void testCreatorHasOneComment() {
-
-        String expectedResult1 = "Brenton Bostick";
-        String expectedResult2 = "03/16/06";
-        String expectedResult3 = "1";
-
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
-        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']")).click();
-
-        String name = getDriver().findElement(By.xpath("//tbody/tr/td[text()='Brenton Bostick']")).getText();
-        String date = getDriver().findElement(By.xpath("//tbody/tr/td[text()='03/16/06']")).getText();
-        String comment = getDriver().findElement(By.xpath("//tbody/tr/td[text()='1']")).getText();
-
-        Assert.assertEquals(name, expectedResult1);
-        Assert.assertEquals(date, expectedResult2);
-        Assert.assertEquals(comment, expectedResult3);
-
-    }
-
-    @Test
-    public void testCountLanguage() {
-
-        int expectedResult = 10;
-        getDriver().get("http://www.99-bottles-of-beer.net/");
-        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
-        getDriver().findElement(By.xpath("//a[@href='0.html']")).click();
-
-        String[] arrayLanguage = new String[10];
-        for (int i = 0; i < arrayLanguage.length; i++) {
-            arrayLanguage[i] = String.valueOf((By.xpath("//tbody/tr[@onmouseover][" + (i + 1) + ")]")));
-        }
-
-        Assert.assertEquals(arrayLanguage.length, expectedResult);
-
-    }
-
-    @Test
-    public void testMessageOfError() {
-
-        String expectedResult = "Error: Error: Invalid security code.";
-        getDriver().get("http://www.99-bottles-of-beer.net/signv2.html");
-
-        getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys("Viktoriia");
-        getDriver().findElement(By.xpath("//input[@name='location']")).sendKeys("Brussel");
-        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("vk@gmail.com");
-        String code = "" + ((int) (Math.random() * 300) + 100);
-        getDriver().findElement(By.xpath("//input[@name='captcha']")).sendKeys(code);
-        getDriver().findElement(By.xpath("//textarea[@name='comment']")).sendKeys("kuku");
-        getDriver().findElement(By.xpath("//input[@type='submit']")).click();
-
-        String actualResult = getDriver().findElement(By.xpath("//div[@id='main']/p")).getText();
-
-        Assert.assertEquals(actualResult, expectedResult);
-
     }
 
 }

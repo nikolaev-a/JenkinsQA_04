@@ -8,6 +8,8 @@ import runner.BaseTest;
 
 
 public class Song99BottlesSvetlanaG1011Test extends BaseTest {
+    private static final String BASE_URL = "http://www.99-bottles-of-beer.net/";
+    private  static final String BROWSE_LANGUAGES_MENU_XPATH = "//li/a[@href='/abc.html']";
 
     @Test
     public void testSongLyricsText() {
@@ -191,6 +193,67 @@ public class Song99BottlesSvetlanaG1011Test extends BaseTest {
                 By.xpath("//li/a[@href='0.html']"))
                 .click();
         int actualResult = getDriver().findElements(By.xpath("//tbody/tr/td[1]")).size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testSignGuestbookWithRandom3digitSecurityCode() {
+
+        String expectedResult = "Error: Error: Invalid security code.";
+
+        getDriver().get("http://www.99-bottles-of-beer.net/signv2.html");
+
+        getDriver().findElement(By.xpath("//input[@name='name']"))
+                .sendKeys("Svetlana");
+        getDriver().findElement(By.xpath("//input[@name='location']"))
+                .sendKeys("New York");
+        getDriver().findElement(By.xpath("//input[@name='email']"))
+                .sendKeys("Sg26@gmail.com");
+        getDriver().findElement(By.xpath("//input[@name='homepage']"))
+                .sendKeys("www.99-bottles-of-beer.net/");
+        getDriver().findElement(By.xpath("//input[@name='captcha']"))
+                .sendKeys(Integer.toString((int) (Math.random() * 900) + 100));
+        getDriver().findElement(By.xpath("//textarea[@name='comment']"))
+                .sendKeys("Thanks");
+        getDriver().findElement(By.xpath("//input[@type='submit']"))
+                .click();
+        String actualResult = getDriver().findElement(By.xpath("//div[@id='main']/p"))
+                .getText();
+
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void testBrowseLanguagesAlternativeVersionsReddit() {
+
+        String expectedResult = "https://www.reddit.com/login/?dest=https%3A%2F%2F" +
+                "www.reddit.com%2Fsubmit%3Furl%3Dhttps%253A%252F%252F" +
+                "www.99-bottles-of-beer.net%252Flanguage-actionscript-16." +
+                "html%26title%3D99%2520Bottles%2520of%2520Beer%2520%257C%2520Language%2520ActionScript";
+
+        getDriver().get("http://www.99-bottles-of-beer.net/");
+
+        getDriver().findElement(By.xpath("//li/a[@href='/abc.html']")).click();
+        getDriver().findElement(By.xpath("//td/a[@href='language-actionscript-1010.html']")).click();
+        getDriver().findElement(By.xpath("//td/a[@href='language-actionscript-16.html']")).click();
+        getDriver().findElement(By.xpath("//a[@title='reddit']")).click();
+        String actualResult = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void test6VersionsOfSolutionsInJava() {
+
+        int expectedResult  = 6;
+
+        getDriver().get(BASE_URL);
+        getDriver().findElement(By.xpath(BROWSE_LANGUAGES_MENU_XPATH)).click();
+        getDriver().findElement(By.xpath("//li/a[@href='j.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='language-java-3.html']")).click();
+        int actualResult = getDriver().findElements(
+                By.xpath("//table[@id='category']//tr[@onmouseover]")).size() + 1;
 
         Assert.assertEquals(actualResult, expectedResult);
     }

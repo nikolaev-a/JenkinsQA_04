@@ -8,22 +8,15 @@ import runner.BaseTest;
 
 import java.util.List;
 
-public class Song99BottlesVadimTrefTest extends BaseTest {
-
-    private static final String BASE_URL = "http://www.99-bottles-of-beer.net/";
-
-    By pTags = By.xpath("//div[@id='main']/p");
+public class Song99BottlesLessonTest extends BaseTest {
+    private static final String BASE_URL = "http://www.99-bottles-of-beer.net";
 
     private void getBottles(StringBuilder lyrics, int number, String btl) {
-        lyrics
-                .append(number)
-                .append(btl);
+        lyrics.append(number).append(btl);
     }
 
-    private void getNoMore (StringBuilder lyrics, String noMore, String btl) {
-        lyrics
-                .append(noMore)
-                .append(btl);
+    private void getNoMore(StringBuilder lyrics, String noMore, String btl) {
+        lyrics.append(noMore).append(btl);
     }
 
     private String createLyrics() {
@@ -31,16 +24,16 @@ public class Song99BottlesVadimTrefTest extends BaseTest {
         final String BOTTLES_DOT_LN = " bottles of beer.\n";
         final String BOTTLES_DOT = " bottles of beer on the wall.";
         final String TAKE = "Take one down and pass it around, ";
-        final String NO_MORE = "No more";
         final String GO = "Go to the store and buy some more, ";
+        final String NO_MORE = "No more";
 
         StringBuilder lyrics = new StringBuilder();
 
         getBottles(lyrics, 99, BOTTLES_WALL_CS);
         getBottles(lyrics, 99, BOTTLES_DOT_LN);
-
         for (int i = 98; i > -1; i--) {
             lyrics.append(TAKE);
+
             if (i == 1) {
                 getBottles(lyrics, i, BOTTLES_DOT.replace("s", ""));
                 getBottles(lyrics, i, BOTTLES_WALL_CS.replace("s", ""));
@@ -62,18 +55,17 @@ public class Song99BottlesVadimTrefTest extends BaseTest {
     }
 
     @Test
-    public void testLyricTextSong99Bottles() {
-
+    public void testSongLyricsText() {
         final String expectedResult = createLyrics();
+        By pTags = By.xpath("//div[@id='main']/p");
+        By menuSongLyrics = By.linkText("Song Lyrics");
 
         getDriver().get(BASE_URL);
-
-        getDriver().findElement(By.linkText("Song Lyrics")).click();
+        getDriver().findElement(menuSongLyrics).click();
 
         StringBuilder actualResult = new StringBuilder();
 
         List<WebElement> pAll = getDriver().findElements(pTags);
-
         for (WebElement p : pAll) {
             actualResult.append(p.getText());
         }
