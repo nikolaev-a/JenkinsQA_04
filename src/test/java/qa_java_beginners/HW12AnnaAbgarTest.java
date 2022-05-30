@@ -8,12 +8,14 @@ import runner.BaseTest;
 
 public class HW12AnnaAbgarTest extends BaseTest {
 
+    private static final String BASE_URL = "http://www.99-bottles-of-beer.net/";
+
     @Test
     public void test12_01AllLanguagesWithLetterJ() {
 
-        String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
+        final String expectedResult = "All languages starting with the letter J are shown, sorted by Language.";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//a[@href='j.html']")).click();
@@ -26,9 +28,9 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_02VerifyMySQLLanguage() {
 
-        String expectedResult = "MySQL";
+        final String expectedResult = "MySQL";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//a[@href='m.html']")).click();
@@ -41,9 +43,9 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_03TableHeaders() {
 
-        String expectedResult = "Language Author Date Comments Rate";
+        final String expectedResult = "Language Author Date Comments Rate";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//a[@href='/abc.html']")).click();
         WebElement table = getDriver().findElement(By.xpath("//table[@id='category']"));
@@ -57,11 +59,11 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_04MathematicaLanguageFeatures() {
 
-        String expectedResult1 = "Brenton Bostick";
-        String expectedResult2 = "03/16/06";
-        String expectedResult3 = "1";
+        final String expectedResult1 = "Brenton Bostick";
+        final String expectedResult2 = "03/16/06";
+        final String expectedResult3 = "1";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']")).click();
@@ -79,9 +81,9 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_0510LanguagesStartingWithNumbers() {
 
-        int expectedResult = 10;
+        final int expectedResult = 10;
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//a[@href='0.html'] ")).click();
@@ -93,9 +95,9 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_06ErrorMessage() {
 
-        String expectedResult = "Error: Error: Invalid security code.";
+        final String expectedResult = "Error: Error: Invalid security code.";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//a[@href='/guestbookv2.html']")).click();
         getDriver().findElement(By.xpath("//a[@href='./signv2.html']")).click();
@@ -120,11 +122,11 @@ public class HW12AnnaAbgarTest extends BaseTest {
     @Test
     public void test12_07RedditLoginPage() {
 
-        String expectedResult = "https://www.reddit.com/login/?dest=https%3A%2F%2F" +
+        final String expectedResult = "https://www.reddit.com/login/?dest=https%3A%2F%2F" +
                 "www.reddit.com%2Fsubmit%3Furl%3Dhttps%253A%252F%252Fwww.99-bottles-of-beer.net%252Flanguage-java-950." +
                 "html%26title%3D99%2520Bottles%2520of%2520Beer%2520%257C%2520Language%2520Java";
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//li/a[@href ='j.html']")).click();
@@ -136,11 +138,111 @@ public class HW12AnnaAbgarTest extends BaseTest {
     }
 
     @Test
+    public void test12_08ShakespeareTopRatedLanguages() {
+
+        final boolean expectedResultTopRated = true;
+
+        getDriver().get(BASE_URL);
+
+        getDriver().findElement(By.xpath("//a[@href='/toplist.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='./toplist.html']")).click();
+        String[] topRated = new String[20];
+        for (int i = 0; i < topRated.length; i++) {
+            int index = i + 2;
+            topRated[i] = getDriver().findElement(By.xpath("//table[@id='category']/tbody/tr[" + index + "]")).getText();
+        }
+
+        boolean actualResultTopRated = false;
+        for (int i = 0; i < topRated.length; i++) {
+            if (topRated[i].contains("Shakespeare")) {
+                actualResultTopRated = true;
+            }
+        }
+
+        Assert.assertEquals(actualResultTopRated, expectedResultTopRated);
+    }
+
+    @Test
+    public void test12_08ShakespeareTopRatedEsotericLanguages() {
+
+        final boolean expectedResult = true;
+
+        getDriver().get(BASE_URL);
+
+        getDriver().findElement(By.xpath("//a[@href='/toplist.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='./toplist_esoteric.html']")).click();
+        String[] topEsoteric = new String[10];
+        for (int i = 0; i < topEsoteric.length; i++) {
+            int index = i + 2;
+            topEsoteric[i] = getDriver().findElement(By.xpath("//table[@id='category']/tbody/tr[" + index + "]")).getText();
+        }
+
+        boolean actualResultTopRatedEsoteric = false;
+        for (int i = 0; i < topEsoteric.length; i++) {
+            if (topEsoteric[i].contains("Shakespeare")) {
+                actualResultTopRatedEsoteric = true;
+            }
+        }
+        Assert.assertEquals(actualResultTopRatedEsoteric, expectedResult);
+    }
+
+
+    @Test
+    public void test12_08ShakespeareTopHitsLanguages() {
+
+        final boolean expectedResult = true;
+
+        getDriver().get(BASE_URL);
+
+        getDriver().findElement(By.xpath("//a[@href='/toplist.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='./tophits.html']")).click();
+        String[] topHits = new String[6];
+        for (int i = 0; i < topHits.length; i++) {
+            int index = i + 2;
+            topHits[i] = getDriver().findElement(By.xpath("//table[@id='category']/tbody/tr[" + index + "]")).getText();
+        }
+
+        boolean actualResultTopHits = false;
+        for (int i = 0; i < topHits.length; i++) {
+            if (topHits[i].contains("Shakespeare")) {
+                actualResultTopHits = true;
+            }
+        }
+        Assert.assertEquals(actualResultTopHits, expectedResult);
+    }
+
+
+    @Test
+    public void test12_08ShakespeareTopRatedRealLanguages() {
+
+        final boolean expectedResult = true;
+
+        getDriver().get(BASE_URL);
+
+        getDriver().findElement(By.xpath("//a[@href='/toplist.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='./toplist_real.html']")).click();
+        String[] topReal = new String[25];
+        for (int i = 0; i < topReal.length; i++) {
+            int index = i + 2;
+            topReal[i] = getDriver().findElement(By.xpath("//table[@id='category']/tbody/tr[" + index + "]")).getText();
+        }
+
+        boolean actualResultTopRatedReal = false;
+        for (int i = 0; i < topReal.length; i++) {
+            if (!topReal[i].contains("Shakespeare")) {
+                actualResultTopRatedReal = true;
+            }
+        }
+        Assert.assertEquals(actualResultTopRatedReal, expectedResult);
+    }
+
+
+    @Test
     public void test12_096JavaVersions() {
 
-        int expectedResult = 6;
+        final int expectedResult = 6;
 
-        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().get(BASE_URL);
 
         getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
         getDriver().findElement(By.xpath("//li/a[@href ='j.html']")).click();
@@ -150,4 +252,35 @@ public class HW12AnnaAbgarTest extends BaseTest {
         Assert.assertEquals(javaVersions, expectedResult);
     }
 
+    @Test
+    public void test12_10TheHighestNumberOfComments() {
+
+        final int expectedResult = 33;
+
+        getDriver().get(BASE_URL);
+
+        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+        getDriver().findElement(By.xpath("//li/a[@href ='j.html']")).click();
+        getDriver().findElement(By.xpath("//a[@href='language-java-3.html']")).click();
+
+        int javaObjectOrientedVersionComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//tr/td/strong[contains(text(),'Comments:')]/parent::td//following-sibling::td")).getText());
+        int javaStandardVersionComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//a[@href='language-java-4.html']//parent::td//following-sibling::td[3]")).getText());
+        int javaExceptionOrientedVersionComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//a[@href='language-java-866.html']//parent::td//following-sibling::td[3]")).getText());
+        int javaBytecodeVersionWithLoaderComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//a[@href='language-java-1162.html']//parent::td//following-sibling::td[3]")).getText());
+        int java5ObjectOrientedVersionComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//a[@href='language-java-950.html']//parent::td//following-sibling::td[3]")).getText());
+        int javaSpeechAPIVersionComments = Integer.parseInt(getDriver().findElement(
+                By.xpath("//a[@href='language-java-1148.html']//parent::td//following-sibling::td[3]")).getText());
+
+        int max1 = Math.max(javaObjectOrientedVersionComments,
+                Math.max(javaStandardVersionComments, javaExceptionOrientedVersionComments));
+        int max2 = Math.max(javaBytecodeVersionWithLoaderComments,
+                Math.max(java5ObjectOrientedVersionComments, javaSpeechAPIVersionComments));
+
+        Assert.assertEquals(Math.max(max1, max2), expectedResult);
+    }
 }
