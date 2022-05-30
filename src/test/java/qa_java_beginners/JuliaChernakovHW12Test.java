@@ -6,8 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import runner.BaseTest;
 
-public class JuliaChernakovHW12Test {
+public class JuliaChernakovHW12Test extends BaseTest {
     /**
      * Подтвердите, что в меню BROWSE LANGUAGES, подменю  J, пользователь
      * может найти описание страницы, на которой перечеслены все программные языки,
