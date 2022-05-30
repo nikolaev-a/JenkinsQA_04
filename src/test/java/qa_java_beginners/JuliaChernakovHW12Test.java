@@ -15,7 +15,7 @@ public class JuliaChernakovHW12Test extends BaseTest {
      * начинающиеся с буквы J, отсортированные по названию
      */
     @Test
-    public void test() {
+    public void testPageDescription() {
         String chromeDriver = "webdriver.chrome.driver";
         String driverPath = "/Applications/chromedriver";
         String url = "http://www.99-bottles-of-beer.net/";
@@ -33,7 +33,7 @@ public class JuliaChernakovHW12Test extends BaseTest {
         submenuJ.click();
 
         WebElement text = driver.findElement(By.xpath("//p[strong]"));
-        String actualResult = "All languages starting with the letter J are shown, sorted by Language.";
+        String actualResult = text.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
 
