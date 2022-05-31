@@ -6,90 +6,110 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ViktorPodgornov99BottlesOfBeerTest extends BaseTest {
 
     private static final String BASE_URL = "http://www.99-bottles-of-beer.net/";
     private static final String BROWSE_LANGUAGES_MENU_XPATH = "//ul[@id='menu']//a[text()='Browse Languages']";
 
-    /**
-     * TC_12_01 Подтвердите, что в меню BROWSE LANGUAGES, подменю  J, пользователь может найти
-     * описание страницы, на которой перечеслены все программные языки, начинающиеся с буквы J,
-     * отсортированные по названию
-     * Шаги:
-     * Открыть базовую страницу
-     * Нажать на пункт меню BROWSE LANGUAGES
-     * Нажать на подменю J
-     * Подтвердить, что пользователь видит текст
-     * “All languages starting with the letter J are shown, sorted by Language.”
-     */
+    public WebElement findElement(String xpath) {
+
+        return getDriver().findElement(By.xpath(xpath));
+    }
+
+    public WebElement getBrowseLanguagesSubmenuXpath(String submenuElement) {
+
+        return findElement(String.format("//ul[@id='submenu']//a[text()='%s']", submenuElement));
+    }
+
+    public List<WebElement> getListOfWebElementsDependentOnXpath(String yourXPath) {
+
+        return getDriver().findElements(By.xpath(yourXPath));
+    }
 
     @Test
     public void testUserCanSeeDescriptionOfPageWhereAllLanguageBeginJ() {
 
         getDriver().get(BASE_URL);
-        getDriver().findElement(By.xpath(BROWSE_LANGUAGES_MENU_XPATH)).click();
+        findElement(BROWSE_LANGUAGES_MENU_XPATH).click();
+        getBrowseLanguagesSubmenuXpath("J").click();
 
-        getDriver().findElement(By.xpath("//ul[@id='submenu']//a[text()='J']")).click();
-
-        Assert.assertEquals(
-                getDriver().findElement(
-                                By.xpath("//p[contains(text(),'All languages starting with the letter')]"))
+        Assert.assertEquals(findElement("//p[contains(text(),'All languages starting with the letter')]")
                         .getText(),
                 "All languages starting with the letter J are shown, sorted by Language.");
     }
-
-    /**
-     * TC_12_02 Подтвердите, что в меню BROWSE LANGUAGES, подменю  M, последний программный язык в таблице -  MySQL
-     * Шаги:
-     * Открыть базовую страницу
-     * Нажать на пункт меню BROWSE LANGUAGES
-     * Нажать на подменю M
-     * Подтвердить, что последний язык программирования на странице - MySQL
-     */
 
     @Test
     public void testConfirmThatInBrowserLanguagesMenuSubmenuMLastLanguageIsMySql() {
 
         getDriver().get(BASE_URL);
-        getDriver().findElement(By.xpath(BROWSE_LANGUAGES_MENU_XPATH)).click();
+        findElement(BROWSE_LANGUAGES_MENU_XPATH).click();
+        getBrowseLanguagesSubmenuXpath("M").click();
 
-        getDriver().findElement(By.xpath("//ul[@id='submenu']//a[text()='M']")).click();
-
-        Assert.assertEquals(
-                getDriver().findElement(
-                                By.xpath("//tr[last()]//a[text()='MySQL']"))
-                        .getText(),
-                "MySQL");
+        Assert.assertEquals(findElement("//tr[last()]//a[text()='MySQL']").getText(), "MySQL");
     }
-
-    /**
-     * TC_12_03 Подтвердите, что в меню BROWSE LANGUAGES существует таблица с заголовками
-     * Language, Author, Date, Comments, Rate
-     * Steps:
-     * Open base url
-     * Click on the menu item BROWSE LANGUAGES
-     * Confirm that on the BROWSE LANGUAGES page a user can see the table with the next headers:
-     * Language, Author, Date, Comments, Rate
-     */
 
     @Test
     public void testConfirmThatTableExistsWithCorrectNamesInBrowserLanguageMenu() {
 
         getDriver().get(BASE_URL);
-        getDriver().findElement(By.xpath(BROWSE_LANGUAGES_MENU_XPATH)).click();
+        findElement(BROWSE_LANGUAGES_MENU_XPATH).click();
 
-        List<WebElement> tableHeadersNamesElementsActual = getDriver().findElements(
-                By.xpath("//table[@id='category']//th"));
         List<String> tableHeadersNamesActual = new ArrayList<>();
-        tableHeadersNamesElementsActual.stream().map(WebElement::getText).forEach(tableHeadersNamesActual::add);
+        getListOfWebElementsDependentOnXpath("//table[@id='category']//th").stream().map(WebElement::getText)
+                .forEach(tableHeadersNamesActual::add);
 
         List<String> tableHeadersNamesExpected = new ArrayList<>(Arrays.asList(
                 "Language", "Author", "Date", "Comments", "Rate"));
 
         Assert.assertEquals(tableHeadersNamesActual.toString(), tableHeadersNamesExpected.toString());
+    }
+
+    @Test
+    public void testConfirmThatCreatorOfMathematicaIsBrentonBostickDateUpdatedIsCorrectHasOneComment() {
+
+        getDriver().get(BASE_URL);
+        findElement(BROWSE_LANGUAGES_MENU_XPATH).click();
+        getBrowseLanguagesSubmenuXpath("M").click();
+
+        Assert.assertEquals(findElement("//a[text()='Mathematica']//ancestor::tr").getText(),
+                "Mathematica Brenton Bostick 03/16/06 1");
+    }
+
+    @Test
+    public void testConfirmThatSiteHasTenLanguagesWhoseNamesBeginWithNumbers() {
+
+        getDriver().get(BASE_URL);
+        findElement(BROWSE_LANGUAGES_MENU_XPATH).click();
+        getBrowseLanguagesSubmenuXpath("0-9").click();
+        List<WebElement> languagesWhoseNamesBeginWithNumbers = getListOfWebElementsDependentOnXpath(
+                "//table[@id='category']//a[contains(@href, 'language')]");
+
+        int countLanguagesNamesBeginWithNumbersActual = 0;
+        for (WebElement languagesWhoseNamesBeginWithNumber : languagesWhoseNamesBeginWithNumbers) {
+            if (Character.isDigit(languagesWhoseNamesBeginWithNumber.getText().charAt(0))) {
+                countLanguagesNamesBeginWithNumbersActual++;
+            }
+        }
+        Assert.assertEquals(countLanguagesNamesBeginWithNumbersActual, 10);
+    }
+
+    @Test
+    public void testConfirmThatUserCanSeeErrorMessageOnPageGuestbookWhenSecurityCodeHasThreeDigits() {
+
+        getDriver().get("http://www.99-bottles-of-beer.net/signv2.html");
+
+        findElement("//input[@name='name']").sendKeys("Viktor");
+        findElement("//input[@name='location']").sendKeys("New York");
+        findElement("//input[@name='email']").sendKeys("emailfortest@gmail.com");
+        findElement("//input[@name='homepage']").sendKeys("http:/sitefortest.com");
+        findElement("//input[@name='captcha']")
+                .sendKeys(Integer.toString(100 + (int) (Math.random() * 900)));
+        findElement("//textarea[@name='comment']").sendKeys("test test test");
+        findElement("//input[@name='submit']").click();
+
+        Assert.assertEquals(findElement("//p[contains(@style, 'border: 1px solid red')]").getText(),
+                "Error: Error: Invalid security code.");
     }
 }

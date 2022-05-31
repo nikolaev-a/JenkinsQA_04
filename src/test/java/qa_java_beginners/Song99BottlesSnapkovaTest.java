@@ -179,8 +179,51 @@ public class Song99BottlesSnapkovaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+    @Test
+    public void testBrowseLanguagesMathematicaInfo(){
+        String expectedResultCreator = "Brenton Bostick";
+        String expectedResultData = "03/16/06";
+        String expectedResultComment = "1";
 
+        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']"))
+                .click();
+        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='m.html']"))
+                .click();
 
+        String actualResultCreator = getDriver().findElement(
+                By.xpath("//table[@id='category']/tbody/*/*/a[@href='language-mathematica-1090.html']"
+                        +"//ancestor::td//ancestor::tr/td[2]"))
+                .getText();
+        String actualResultData = getDriver().findElement(
+                By.xpath("//table[@id='category']/tbody/*/*/a[@href='language-mathematica-1090.html']"
+                        + "//ancestor::td//ancestor::tr/td[3]"))
+                .getText();
+        String actualResultComment = getDriver().findElement(
+                By.xpath("//table[@id='category']/tbody/*/*/a[@href='language-mathematica-1090.html']"
+                        + "//ancestor::td//ancestor::tr/td[4]"))
+                .getText();
 
+        Assert.assertEquals(actualResultCreator, expectedResultCreator);
+        Assert.assertEquals(actualResultData, expectedResultData);
+        Assert.assertEquals(actualResultComment, expectedResultComment);
 
+    }
+    @Test
+    public void testBrowseLanguageSubMenu09CounterLanguagesTen(){
+        int  expectedResult= 10;
+
+        getDriver().get("http://www.99-bottles-of-beer.net/");
+        getDriver().findElement(
+                By.xpath("//div[@id='navigation']/ul[@id='menu']/li/a[@href='/abc.html']"))
+                .click();
+        getDriver().findElement(
+                By.xpath("//div[@id='navigation']/ul[@id='submenu']/li/a[@href='0.html']"))
+                .click();
+        int actualResult = getDriver().findElements(
+                        By.xpath("//table[@id='category']/tbody/tr/td[1]")).size();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+    }
 }

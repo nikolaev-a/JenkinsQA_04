@@ -1,10 +1,13 @@
 package qa_java_beginners;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
+
+import java.util.List;
 
 public class Song99BottlesHelenVelTest extends BaseTest {
 
@@ -162,6 +165,139 @@ public class Song99BottlesHelenVelTest extends BaseTest {
         String actualResult = languageMySQL.getText();
 
         Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testConfirmTheTableAndHeaders() {
+
+        String expectedResult = "Language";
+        String expectedResult2 = "Author";
+        String expectedResult3 = "Date";
+        String expectedResult4 = "Comments";
+        String expectedResult5 = "Rate";
+
+        getDriver().get("https://www.99-bottles-of-beer.net/abc.html");
+
+        WebElement TitleTable = getDriver().findElement((By.xpath("//table/tbody/tr/th[1]")));
+        WebElement TitleTable2 = getDriver().findElement((By.xpath("//table/tbody/tr/th[2]")));
+        WebElement TitleTable3 = getDriver().findElement((By.xpath("//table/tbody/tr/th[3]")));
+        WebElement TitleTable4 = getDriver().findElement((By.xpath("//table/tbody/tr/th[4]")));
+        WebElement TitleTable5 = getDriver().findElement((By.xpath("//table/tbody/tr/th[5]")));
+
+        String actualResult = TitleTable.getText();
+        String actualResult2 = TitleTable2.getText();
+        String actualResult3 = TitleTable3.getText();
+        String actualResult4 = TitleTable4.getText();
+        String actualResult5 = TitleTable5.getText();
+
+        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult2,expectedResult2);
+        Assert.assertEquals(actualResult3,expectedResult3);
+        Assert.assertEquals(actualResult4,expectedResult4);
+        Assert.assertEquals(actualResult5,expectedResult5);
+    }
+
+    @Test
+    public void testCreatorInTheLanguageOfMathematics() {
+
+        String expectedResult = "Brenton Bostick";
+        String expectedResult2 = "03/16/06";
+        String expectedResult3 = "1";
+
+        getDriver().get("https://www.99-bottles-of-beer.net/abc.html");
+
+        WebElement SubmenuM = getDriver().findElement((By.xpath("//li/a[@href='m.html']")));
+        SubmenuM.click();
+        WebElement LanguageMathematica = getDriver().findElement(
+                (By.xpath("//td/a[@href='language-mathematica-1090.html']")));
+        LanguageMathematica.click();
+        WebElement AuthorLanguage = getDriver().findElement(
+                (By.xpath("//div[@id='main']/table/tbody/tr[2]/td[2]")));
+        WebElement Data = getDriver().findElement(
+                (By.xpath("//div[@id='main']/table/tbody/tr/td[2]")));
+        WebElement Comments = getDriver().findElement(
+                (By.xpath("//div[@id='main']/table/tbody/tr[4]/td[2]")));
+
+        String actualResult = AuthorLanguage.getText();
+        String actualResult2 = Data.getText();
+        String actualResult3 = Comments.getText();
+
+        Assert.assertEquals(actualResult,expectedResult);
+        Assert.assertEquals(actualResult2,expectedResult2);
+        Assert.assertEquals(actualResult3,expectedResult3);
+    }
+
+    @Test
+    public void testConfirm10Languages() {
+
+        int expectedResult = 10;
+        getDriver().get("https://www.99-bottles-of-beer.net/0.html");
+
+        List<WebElement> tableLanguage = getDriver().findElements(By.xpath("//tbody/tr[@onmouseover]"));
+        int actualResult = tableLanguage.size();
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testErrorInvalidSecurityCode() {
+
+        String expectedResult = "Error: Error: Invalid security code.";
+        getDriver().get("http://www.99-bottles-of-beer.net/signv2.html");
+
+        WebElement name = getDriver().findElement((By.xpath("//input[@name='name']")));
+        name.sendKeys("Helen");
+
+        WebElement location = getDriver().findElement((By.xpath("//input[@name='location']")));
+        location.sendKeys("Уфа");
+
+        WebElement email = getDriver().findElement((By.xpath("//input[@name='email']")));
+        email.sendKeys("helen@ya.ru");
+
+        WebElement securityCode = getDriver().findElement((By.xpath("//input[@name='captcha']")));
+        securityCode.sendKeys("123");
+
+        WebElement message = getDriver().findElement((By.xpath("//textarea[@name='comment']")));
+        message.sendKeys("New Language");
+
+        getDriver().findElement((By.xpath("//input[@type='submit']"))).click();
+
+        WebElement error = getDriver().findElement((By.xpath("//body/div[@id='wrap']/div[@id='main']/p")));
+
+        String actualResult = error.getText();
+
+        Assert.assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+    public void testBookmarkOnReddit() {
+
+        String expectedResult ="https://www.reddit.com/login/?dest=https%3A%2F%2Fwww.reddit.com%2Fsubmit%3Furl%" +
+                "3Dhttps%253A%252F%252Fwww.99-bottles-of-beer.net%252Flanguage-zt-2467.html%26title%3D99%2520Bottles%" +
+                "2520of%2520Beer%2520%257C%2520Language%2520ZT";
+        getDriver().get("https://www.99-bottles-of-beer.net/abc.html");
+
+        getDriver().findElement((By.xpath("//a[@href='z.html']"))).click();
+        getDriver().findElement((By.xpath("//a[@href='language-zt-62.html']"))).click();
+        getDriver().findElement((By.xpath("//a[@href='language-zt-2467.html']"))).click();
+        getDriver().findElement((By.xpath("//a[@title='reddit']"))).click();
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedResult);
+    }
+
+    @Test
+    public void testSixVersionsOfJava() {
+
+        int expectedResult = 6;
+        getDriver().get("https://www.99-bottles-of-beer.net/");
+
+        getDriver().findElement(By.xpath("//ul[@id='menu']/li/a[@href='/abc.html']")).click();
+        getDriver().findElement(By.xpath("//ul[@id='submenu']/li/a[@href='j.html']")).click();
+        getDriver().findElement(By.xpath("//tbody/tr/td/a[@href='language-java-3.html']")).click();
+
+        int jVersions = getDriver().findElements(By.xpath("//table[@id='category']/tbody/tr/td[1]")).size() + 1;
+
+        Assert.assertEquals(jVersions, expectedResult);
     }
 }
 
