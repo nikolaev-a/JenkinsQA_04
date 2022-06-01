@@ -1,4 +1,4 @@
-package qa_old;
+package runner.tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,13 +8,14 @@ import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import static java.sql.DriverManager.getDriver;
+import static pageObgects.homePage.HomePageLocators.LogOutBtn;
 
-@Ignore
+
 public class SergeyTest extends BaseTest {
 
     @Test
     public void testFirstSelenium() {
-        Assert.assertTrue(getDriver().findElement(By.id("side-panel")).isDisplayed());
+        Assert.assertTrue(LogOutBtn.isDisplayed());
     }
 
 }

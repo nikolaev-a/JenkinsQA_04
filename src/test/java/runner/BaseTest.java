@@ -3,11 +3,9 @@ package runner;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
-import java.lang.reflect.Method;
-
 public abstract class BaseTest {
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
     @BeforeMethod
     protected void beforeMethod() {
@@ -17,11 +15,11 @@ public abstract class BaseTest {
 
     @AfterMethod
     protected void afterMethod() {
-        ProjectUtils.logout(driver);
+        ProjectUtils.logout();
         driver.quit();
     }
 
-    protected WebDriver getDriver() {
+    protected static WebDriver getDriver() {
         return driver;
     }
 }
