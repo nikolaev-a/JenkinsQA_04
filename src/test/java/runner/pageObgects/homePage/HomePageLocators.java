@@ -1,4 +1,4 @@
-package pageObgects.homePage;
+package runner.pageObgects.homePage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

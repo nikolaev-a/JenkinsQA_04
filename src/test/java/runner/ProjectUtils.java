@@ -1,10 +1,9 @@
 package runner;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static pageObgects.homePage.HomePageLocators.*;
-import static pageObgects.loginPage.LoginPageLocators.*;
+import static runner.pageObgects.homePage.HomePageLocators.*;
+import static runner.pageObgects.loginPage.LoginPageLocators.*;
 import static runner.BaseUtils.PREFIX_PROP;
 import static runner.BaseUtils.getProperties;
 

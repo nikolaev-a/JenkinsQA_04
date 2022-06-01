@@ -1,4 +1,4 @@
-package pageObgects.loginPage;
+package runner.pageObgects.loginPage;
 
 import org.openqa.selenium.By;
 
