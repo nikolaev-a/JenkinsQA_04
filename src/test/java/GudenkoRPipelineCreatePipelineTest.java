@@ -10,7 +10,7 @@ import runner.BaseTest;
 
 import java.util.Date;
 
-public class GudenkoPipelineCreatePipelineTest extends BaseTest {
+public class GudenkoRPipelineCreatePipelineTest extends BaseTest {
 
     private JavascriptExecutor javascriptExecutor;
     private Date date;
