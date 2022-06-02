@@ -21,7 +21,7 @@ public class GudenkoRPipelineCreatePipelineTest extends BaseTest {
         date = new Date();
     }
 
-    @Test(description = "TC_017.007")
+    @Test(description = "TC_017_007")
     public void testJenkinsCredentialsProviderWindow() {
 
         getDriver().findElement(By.xpath("//a[@title='New Item']")).click();
