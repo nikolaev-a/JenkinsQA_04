@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class AddDescriptionForProjectNameTest extends BaseTest {
+public class DastanAddDescriptionForProjectNameTest extends BaseTest {
 
     private final String PROJECT_NAME = "Some_Project";
 
@@ -19,7 +19,7 @@ public class AddDescriptionForProjectNameTest extends BaseTest {
     }
     protected void deleteProject() {
         getDriver().findElement(By.cssSelector("img#jenkins-head-icon")).click();
-        getDriver().findElement(By.xpath("//a[contains(@href, 'hello')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(@href, 'Some_Project')]")).click();
         getDriver().findElement(By.cssSelector("a[data-post='true']")).click();
         getDriver().switchTo().alert().accept();
     }
