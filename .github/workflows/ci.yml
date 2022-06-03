@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [dt/TC_002.001]
 
 jobs:
   run-test:
