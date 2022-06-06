@@ -20,5 +20,6 @@ public class DeletePipelineDescriptionTest extends BaseTest {
 
         WebElement descriptionValue = getDriver().findElement(By.xpath("//*[@id=\"description\"]/div[1]"));
         Assert.assertEquals(descriptionValue.getText(), "");
+
     }
 }
