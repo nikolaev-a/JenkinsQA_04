@@ -2,7 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -38,7 +38,9 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
     public void descriptionTest(){
         final String expectedText = "This is a sample project.";
         addDescription();
-        FluentWait<WebDriver> fluentWait = new FluentWait<>(getDriver()).withTimeout(30, TimeUnit.SECONDS).pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
+        //FluentWait<WebDriver> fluentWait = new FluentWait<>(getDriver()).withTimeout(30, TimeUnit.SECONDS).pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")));
         String actualText = getDriver().findElement(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")).getText();
         Assert.assertEquals(actualText, expectedText);
         deleteProject();
