@@ -38,9 +38,11 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
     public void descriptionTest(){
         final String expectedText = "This is a sample project.";
         addDescription();
-        //FluentWait<WebDriver> fluentWait = new FluentWait<>(getDriver()).withTimeout(30, TimeUnit.SECONDS).pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
+        //FluentWait<WebDriver> fluentWait = new FluentWait<>(getDriver()).withTimeout(10, TimeUnit.SECONDS).pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
         //WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")));
+        new WebDriverWait(getDriver(), 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'This is a sample project.')]")));
+
         String actualText = getDriver().findElement(By.xpath("//*[contains(text(), 'This is a sample project.')]")).getText();
         Assert.assertEquals(actualText, expectedText);
         deleteProject();
