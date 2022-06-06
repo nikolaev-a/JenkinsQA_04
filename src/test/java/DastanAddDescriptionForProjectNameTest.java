@@ -15,7 +15,7 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
         getDriver().findElement(By.cssSelector("li[tabindex='0'][class='hudson_model_FreeStyleProject']")).click();
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
         getDriver().findElement(By.name("description")).sendKeys("This is a sample project.");
-        getDriver().findElement(By.id("yui-gen25-button")).click();
+        getDriver().findElement(By.xpath("//*[@id=\"yui-gen25-button\"]")).click();
     }
     protected void deleteProject() {
         getDriver().findElement(By.cssSelector("img#jenkins-head-icon")).click();
