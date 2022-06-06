@@ -33,7 +33,7 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
     public void descriptionTest(){
         final String expectedText = "This is a sample project.";
         addDescription();
-        String actualText = getDriver().findElement(By.xpath("//*[@id=\"description\"]/div[1]")).getText();
+        String actualText = getDriver().findElement(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")).getText();
         Assert.assertEquals(actualText, expectedText);
         deleteProject();
     }
