@@ -3,7 +3,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
-public class US_001_tests extends BaseTest {
+public class CreateFreestyleProjectTest extends BaseTest {
 
     private void createProject(){
         getDriver().findElement(By.className("task-link-text")).click();
@@ -63,7 +63,6 @@ public class US_001_tests extends BaseTest {
 
         Assert.assertEquals(actualResult,expectedResult);
     }
-
 
     @Test
     public void test_TC_001_010_CreateFreestyleProject() {
