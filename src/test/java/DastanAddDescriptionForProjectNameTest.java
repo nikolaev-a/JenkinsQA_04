@@ -8,13 +8,14 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
 
     private final String PROJECT_NAME = "Some_Project";
 
-    protected void addDescription() {
+    protected void addDescription() throws InterruptedException {
         getDriver().findElement(By.cssSelector("span[class='task-link-text']")).click();
         WebElement entryField = getDriver().findElement(By.id("name"));
         entryField.sendKeys(PROJECT_NAME);
         getDriver().findElement(By.cssSelector("li[tabindex='0'][class='hudson_model_FreeStyleProject']")).click();
         getDriver().findElement(By.xpath("//button[@type='submit']")).click();
         getDriver().findElement(By.name("description")).sendKeys("This is a sample project.");
+        Thread.sleep(3000);
         getDriver().findElement(By.xpath("//*[@id=\"yui-gen25-button\"]")).click();
     }
     protected void deleteProject() {
@@ -25,7 +26,7 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
     }
 
     @Test
-    public void descriptionTest() {
+    public void descriptionTest() throws InterruptedException {
         final String expectedText = "This is a sample project.";
         addDescription();
         String actualText = getDriver().findElement(By.xpath("//*[@id=\"description\"]/div[1]")).getText();
