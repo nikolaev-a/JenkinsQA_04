@@ -14,7 +14,7 @@ public class NewItemPageTest extends BaseTest {
     }
 
     @Test
-    public void testFormSubmissionHappyPath() throws InterruptedException {
+    public void testFormSubmissionHappyPath() {
 
         clickNewItem();
 
