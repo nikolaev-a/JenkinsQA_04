@@ -69,7 +69,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     Assert.assertEquals(nameOnDashboard.getText(), NAME_FOLDER);
   }
 
-  @Test
+  @Test(dependsOnMethods={"testCreateMultiConfigFolder_TC_041_001"})
   public void testBuildNow_TC_044_001(){
 
     runBuildNow();
@@ -79,7 +79,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     Assert.assertTrue(isSuccesedBuildIsDipslayed());
   }
 
-  @Test
+  @Test(dependsOnMethods={"testBuildNow_TC_044_001"})
   public void testDeleteMultiConfigFolder_TC_041_002(){
 
     deleteFolder();
