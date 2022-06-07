@@ -1,6 +1,7 @@
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -18,11 +19,12 @@ public class MultiConfigurationProjectTest extends BaseTest {
   }
 
   protected void deleteFolder(){
-    getDriver().findElement(By.id("jenkins-home-link")).click();
-    getDriver().findElement(By.xpath("//a[contains(text(),'" +NAME_FOLDER+ "')]")).click();
-    getDriver().findElement(By.linkText("Delete Multi-configuration project")).click();
-    Alert alert = getDriver().switchTo().alert();
-    alert.accept();
+
+    Actions action = new Actions(getDriver());
+    action.moveToElement(getDriver().findElement(
+            By.xpath("//a[@href='job/" + NAME_FOLDER + "/']"))).click().build().perform();
+    getDriver().findElement(By.xpath("//span[text()='Delete Multi-configuration project']")).click();
+    getDriver().switchTo().alert().accept();
   }
 
   protected void returnToMainPage() {
