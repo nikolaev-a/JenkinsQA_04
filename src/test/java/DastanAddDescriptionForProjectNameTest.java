@@ -39,11 +39,20 @@ public class DastanAddDescriptionForProjectNameTest extends BaseTest {
         final String expectedText = "This is a sample project.";
         addDescription();
         //FluentWait<WebDriver> fluentWait = new FluentWait<>(getDriver()).withTimeout(20, TimeUnit.SECONDS).pollingEvery(200, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
-        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")));
+        //WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/div[2]/div[1]/div[1]")));
         //new WebDriverWait(getDriver(), 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'This is a sample project.')]")));
         //String descriptionText = getDriver().findElement(By.xpath("//*[contains(text(), 'This is a sample project.')]")).getText();
+
         WebElement descrpText = getDriver().findElement(By.id("description"));
+        JavascriptExecutor javascriptExecutor_1 = (JavascriptExecutor) getDriver();
+        javascriptExecutor_1.executeScript("document.getElementById('description').style.display='block';");
+        boolean b = descrpText.isDisplayed();
+        if(b) {
+            System.out.println("Element is visible.");
+        }else{
+            System.out.println("Element is not visible.");
+        }
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
 
         String actualText = (String) javascriptExecutor.executeScript("return arguments[0].value='This is a sample project.';", descrpText);
