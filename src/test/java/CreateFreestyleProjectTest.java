@@ -16,7 +16,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     private void deleteProject() {
-        getDriver().findElement(By.linkText("Удалить Проект")).click();
+        getDriver().findElement(By.linkText("Delete Project")).click();
         getDriver().switchTo().alert().accept();
     }
 
@@ -32,7 +32,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject1() {
-        String expectedResult = "» '@' небезопасный символ";
+        String expectedResult = "» ‘@’ is an unsafe character";
 
 
         getDriver().findElement(By.className("task-link-text")).click();
@@ -44,7 +44,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject2() {
-        String expectedResult = "» ':' небезопасный символ";
+        String expectedResult = "» ‘:’ is an unsafe character";
 
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys("FirstProjectTest:");
@@ -55,7 +55,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject3() {
-        String expectedResult = "» '!' небезопасный символ";
+        String expectedResult = "» ‘!’ is an unsafe character";
 
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys("FirstProjectTest!");
@@ -65,13 +65,13 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void test_TC_001_010_CreateFreestyleProject() {
+    public void test_TC_001_010_CreateFreestyleProject() throws InterruptedException {
         String expectedResult = "FirstProjectTestKT";
         createProject();
 
         String actualResult = getDriver().findElement(By.xpath("//ul/li/a[@href='/job/FirstProjectTestKT/']")).getText();
         Assert.assertEquals(actualResult, expectedResult);
-
+//        Thread.sleep(100000);
         deleteProject();
     }
 }
