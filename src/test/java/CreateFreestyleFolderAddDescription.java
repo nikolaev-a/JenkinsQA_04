@@ -7,25 +7,11 @@ import runner.BaseTest;
 
 public class CreateFreestyleFolderAddDescription extends BaseTest {
 
-    private void deleteNewFolder(String link) {
-        getDriver().findElement(By.linkText(link)).click();
-        getDriver().findElement(By.linkText("Delete Folder")).click();
-        getDriver().findElement(By.id("yui-gen1-button")).click();
-    }
-
     private void deleteNewProject(String link) {
         getDriver().findElement(By.linkText(link)).click();
         getDriver().findElement(By.linkText("Delete Project")).click();
 
         getDriver().switchTo().alert().accept();
-    }
-
-    private void createNewFolder(String name) {
-        getDriver().findElement(By.linkText("New Item")).click();
-        getDriver().findElement(By.id("name")).sendKeys(name);
-        getDriver().findElement(By.xpath("//div[@id='j-add-item-type-nested-projects']//li[1]")).click();
-        getDriver().findElement(By.id("ok-button")).click();
-        getDriver().findElement(By.id("yui-gen6-button")).click();
     }
 
     private void clearDescriptionBoxOfFreestyleProject() {
