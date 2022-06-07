@@ -16,7 +16,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     private void deleteProject() {
-        getDriver().findElement(By.linkText("Delete Project")).click();
+        getDriver().findElement(By.linkText("Удалить Проект")).click();
         getDriver().switchTo().alert().accept();
     }
 
@@ -32,7 +32,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject1() {
-        String expectedResult = "» '@' is an unsafe character";
+        String expectedResult = "» '@' небезопасный символ";
 
 
         getDriver().findElement(By.className("task-link-text")).click();
@@ -44,7 +44,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject2() {
-        String expectedResult = "» ':' is an unsafe character";
+        String expectedResult = "» ':' небезопасный символ";
 
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys("FirstProjectTest:");
@@ -55,7 +55,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
 
     @Test
     public void test_TC_001_009_ValidCharactersInTheFreestyleProject3() {
-        String expectedResult = "» '!' is an unsafe character";
+        String expectedResult = "» '!' небезопасный символ";
 
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.xpath("//input[@name='name']")).sendKeys("FirstProjectTest!");
