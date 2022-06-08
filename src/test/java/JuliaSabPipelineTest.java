@@ -118,12 +118,12 @@ public class JuliaSabPipelineTest extends BaseTest {
         Assert.assertTrue(actualResult.contains("responseText"));
     }
 
-    @BeforeMethod
-    @Override
-    protected void beforeMethod() {
-        super.beforeMethod();
-        createNewPipeline("First Pipeline", "First test");
-    }
+//    @BeforeMethod
+//    @Override
+//    protected void beforeMethod() {
+//        super.beforeMethod();
+//        createNewPipeline("First Pipeline", "First test");
+//    }
 
 //    @AfterMethod
 //    @Override
