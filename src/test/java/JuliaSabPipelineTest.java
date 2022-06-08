@@ -68,6 +68,7 @@ public class JuliaSabPipelineTest extends BaseTest {
         Assert.assertEquals(actualResult, "First test");
     }
 
+
     @Test
     public void testCheckIconWithTip023002() {
         findAndChooseErrorOptInSampleStep();
@@ -93,6 +94,7 @@ public class JuliaSabPipelineTest extends BaseTest {
                 .isDisplayed());
     }
 
+    @Ignore
     @Test
     public void testCheckHiddenTextBelowIconWithTipAfterClick023002() {
         findAndChooseErrorOptInSampleStep();
@@ -123,13 +125,12 @@ public class JuliaSabPipelineTest extends BaseTest {
         createNewPipeline("First Pipeline", "First test");
     }
 
-    @Ignore
-    @AfterMethod
-    @Override
-    protected void afterMethod() {
-        deletePipeline("First Pipeline", "Delete Pipeline");
-        super.afterMethod();
-    }
+//    @AfterMethod
+//    @Override
+//    protected void afterMethod() {
+//        deletePipeline("First Pipeline", "Delete Pipeline");
+//        super.afterMethod();
+//    }
 
     private void findAndChooseErrorOptInSampleStep() {
         getDriver().findElement(XPATH_JOB_LIST).click();
