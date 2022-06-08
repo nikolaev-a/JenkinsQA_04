@@ -104,6 +104,7 @@ public class JuliaSabPipelineTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testCheckGenerateScript023001() {
         findAndChooseErrorOptInSampleStep();
