@@ -12,13 +12,11 @@ public class StasSingInTest extends BaseTest {
     private WebDriver driver;
 
     @BeforeMethod
-    @Override
     protected void beforeMethod() {
         driver = BaseUtils.createDriver();
     }
 
     @AfterMethod
-    @Override
     protected void afterMethod() {
         driver.quit();
     }
