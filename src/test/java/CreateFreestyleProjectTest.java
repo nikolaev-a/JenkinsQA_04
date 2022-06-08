@@ -31,7 +31,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void test_TC_001_009_ValidCharactersInTheFreestyleProject1() {
+    public void TC_001_009_ValidCharactersInTheFreestyleProject1Test() {
         String expectedResult = "» ‘@’ is an unsafe character";
 
 
@@ -43,7 +43,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void test_TC_001_009_ValidCharactersInTheFreestyleProject2() {
+    public void TC_001_009_ValidCharactersInTheFreestyleProject2Test() {
         String expectedResult = "» ‘:’ is an unsafe character";
 
         getDriver().findElement(By.className("task-link-text")).click();
@@ -54,7 +54,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void test_TC_001_009_ValidCharactersInTheFreestyleProject3() {
+    public void TC_001_009_ValidCharactersInTheFreestyleProject3Test() {
         String expectedResult = "» ‘!’ is an unsafe character";
 
         getDriver().findElement(By.className("task-link-text")).click();
@@ -65,13 +65,13 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void test_TC_001_010_CreateFreestyleProject() throws InterruptedException {
+    public void TC_001_010_CreateFreestyleProjectTest() {
         String expectedResult = "FirstProjectTestKT";
         createProject();
 
         String actualResult = getDriver().findElement(By.xpath("//ul/li/a[@href='/job/FirstProjectTestKT/']")).getText();
         Assert.assertEquals(actualResult, expectedResult);
-//        Thread.sleep(100000);
+
         deleteProject();
     }
 }
