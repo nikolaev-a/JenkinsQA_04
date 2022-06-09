@@ -3,14 +3,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
 import java.util.Date;
 import java.util.List;
 
-public class KICreatePipelineTest extends BaseTest {
+public class CreatePipelineTest extends BaseTest {
     private static final By NEW_ITEM = By.cssSelector("[title='New Item']");
     private static final By INPUT_LINE = By.id("name");
     private static final By PIPELINE = By.xpath("//span[text()='Pipeline']");
@@ -58,21 +57,17 @@ public class KICreatePipelineTest extends BaseTest {
         Assert.assertEquals(errorMessageTwo, "Error");
     }
 
-    @Ignore
     @Test(description = "TC_017.009")
     public void testCheckDropDownMenuPipeline() {
         fillNameAndClick(date.getTime());
         getDriver().findElement(OK_BUTTON).click();
-        getDriver().findElement(By.cssSelector("[class='tab config-section" +
-                "-activator config_pipeline']")).click();
+
+        WebElement dropDownMenu = getDriver().findElement(By.className("samples"));
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView();",
+                dropDownMenu);
 
         List<WebElement> optionsDropDown = getDriver().findElements(
                 By.xpath("//div[1][@class='samples']//select/option"));
-
-        WebElement logOut = getDriver().findElement(By.cssSelector(
-                "[href='/logout']"));
-        javascriptExecutor.executeScript("arguments[0].scrollIntoView();",
-                logOut);
 
         Assert.assertEquals(optionsDropDown.size(), 4);
     }
