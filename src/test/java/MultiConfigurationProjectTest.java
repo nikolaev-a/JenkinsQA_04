@@ -82,9 +82,10 @@ public class MultiConfigurationProjectTest extends BaseTest {
   }
 
   @Test(dependsOnMethods={"testBuildNow_TC_044_001"})
-  public void testDeleteMultiConfigFolder_TC_041_002(){
+  public void testDeleteMultiConfigFolder_TC_041_002() throws InterruptedException {
 
     deleteFolder();
+    Thread.sleep(1000);
 
     Assert.assertFalse(isElementPresent());
   }
