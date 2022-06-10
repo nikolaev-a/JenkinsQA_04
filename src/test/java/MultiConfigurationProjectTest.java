@@ -1,10 +1,11 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-import java.util.concurrent.TimeUnit;
 
 public class MultiConfigurationProjectTest extends BaseTest {
   private final String NAME_FOLDER = "TestMultiConfigurationProject";
@@ -71,10 +72,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
     getDriver().findElement(By.linkText("Build Now")).click();
   }
 
-  protected void wait10Seconds(){
-    getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-  }
-
   protected void selectTopBuildInHistory(){
     getDriver().findElement(By.className("build-status-link")).click();
   }
@@ -83,7 +80,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
     return getDriver().findElement(
                     By.xpath("//span/span/*[name()='svg' and (contains(@tooltip, 'Success'))]")).isDisplayed();
   }
-
 
   @Test
   public void testCreateMultiConfigFolder_TC_041_001() {
@@ -100,19 +96,21 @@ public class MultiConfigurationProjectTest extends BaseTest {
   public void testBuildNow_TC_044_001(){
 
     runBuildNow();
-    wait10Seconds();
+
+    WebDriverWait wait = new WebDriverWait(getDriver(),10);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("build-status-link")));
+
     selectTopBuildInHistory();
 
     Assert.assertTrue(isSuccesedBuildIsDipslayed());
   }
 
   @Test(dependsOnMethods={"testBuildNow_TC_044_001"})
-  public void testDeleteMultiConfigFolder_TC_041_002() throws InterruptedException {
+  public void testDeleteMultiConfigFolder_TC_041_002(){
 
     createMultiConfigFolder("testToDelete");
     returnToMainPage();
     deleteFolder("testToDelete");
-    Thread.sleep(1000);
 
     Assert.assertFalse(isElementPresent("testToDelete"));
   }
