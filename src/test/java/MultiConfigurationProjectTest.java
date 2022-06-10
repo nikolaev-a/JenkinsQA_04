@@ -57,6 +57,15 @@ public class MultiConfigurationProjectTest extends BaseTest {
     }
   }
 
+  protected boolean isElementPresent(String name) {
+    try {
+      getDriver().findElement(By.xpath("//tr[@id='job_" + name + "']//td[3]"));
+      return true;
+    } catch (org.openqa.selenium.NoSuchElementException e) {
+      return false;
+    }
+  }
+
   protected void runBuildNow(){
     getDriver().findElement(By.id("jenkins-home-link")).click();
     getDriver().findElement(By.xpath("//a[contains(text(),'" +NAME_FOLDER+ "')]")).click();
@@ -106,6 +115,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
     deleteFolder("testToDelete");
     Thread.sleep(1000);
 
-    Assert.assertFalse(isElementPresent());
+    Assert.assertFalse(isElementPresent("testToDelete"));
   }
 }
