@@ -67,7 +67,7 @@ public class GShDeletePipelineFromDashboardTest extends BaseTest {
     }
 
     @Test
-    public void checkInvalidNameTest() throws InterruptedException{
+    public void checkInvalidNameTest(){
         if (!checkNameforNewPipeline(PIPELINE_NAME)) {
             createNewPipeline();
         }
