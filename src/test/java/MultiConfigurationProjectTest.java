@@ -18,11 +18,28 @@ public class MultiConfigurationProjectTest extends BaseTest {
     getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
   }
 
+  protected void createMultiConfigFolder(String name) {
+    getDriver().findElement(By.linkText("New Item")).click();
+    WebElement itemName = getDriver().findElement(By.id("name"));
+    itemName.sendKeys(name);
+    getDriver().findElement(By.xpath("//div[@id='j-add-item-type-standalone-projects']//li[3]")).click();
+    getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
+  }
+
   protected void deleteFolder(){
 
     Actions action = new Actions(getDriver());
     action.moveToElement(getDriver().findElement(
             By.xpath("//a[@href='job/" + NAME_FOLDER + "/']"))).click().build().perform();
+    getDriver().findElement(By.xpath("//span[text()='Delete Multi-configuration project']")).click();
+    getDriver().switchTo().alert().accept();
+  }
+
+  protected void deleteFolder(String name){
+
+    Actions action = new Actions(getDriver());
+    action.moveToElement(getDriver().findElement(
+            By.xpath("//a[@href='job/" + name + "/']"))).click().build().perform();
     getDriver().findElement(By.xpath("//span[text()='Delete Multi-configuration project']")).click();
     getDriver().switchTo().alert().accept();
   }
@@ -84,7 +101,9 @@ public class MultiConfigurationProjectTest extends BaseTest {
   @Test(dependsOnMethods={"testBuildNow_TC_044_001"})
   public void testDeleteMultiConfigFolder_TC_041_002() throws InterruptedException {
 
-    deleteFolder();
+    createMultiConfigFolder("testToDelete");
+    returnToMainPage();
+    deleteFolder("testToDelete");
     Thread.sleep(1000);
 
     Assert.assertFalse(isElementPresent());
