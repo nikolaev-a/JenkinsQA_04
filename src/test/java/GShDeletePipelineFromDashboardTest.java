@@ -18,7 +18,6 @@ public class GShDeletePipelineFromDashboardTest extends BaseTest {
         getDriver().findElement(By.id("name")).sendKeys(PIPELINE_NAME);
         getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob")).click();
         getDriver().findElement(By.id("ok-button")).click();
-        //getDriver().findElement(By.id("yui-gen6-button")).click();
     }
 
     private boolean checkNameforNewPipeline(String name) {
