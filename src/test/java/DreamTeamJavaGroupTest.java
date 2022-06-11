@@ -9,7 +9,7 @@ public class DreamTeamJavaGroupTest extends BaseTest {
     public static final String REST_API_PAGE = "http://localhost:8080/api/";
 
     @Test
-    public void testTC_132_001_FooterCheckLinksFelix_IX() {
+    public void testFooterCheckLinksAPI() {
 
         getDriver().findElement(By.xpath(FOOTER_REST_API)).click();
         Assert.assertEquals(getDriver().getCurrentUrl(), REST_API_PAGE);
