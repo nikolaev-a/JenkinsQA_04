@@ -131,6 +131,7 @@ public class PipelineAndSnippetGeneratorTest extends BaseTest {
     }
 
     @Ignore
+
     @AfterMethod
     protected void setDown() {
         deletePipeline("First Pipeline", "Delete Pipeline");
