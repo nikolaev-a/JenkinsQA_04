@@ -2,7 +2,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
@@ -96,10 +95,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
   public void testBuildNow_TC_044_001(){
 
     runBuildNow();
-
-    WebDriverWait wait = new WebDriverWait(getDriver(),10);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("build-status-link")));
-
+    getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.className("build-status-link")));
     selectTopBuildInHistory();
 
     Assert.assertTrue(isSuccesedBuildIsDipslayed());
