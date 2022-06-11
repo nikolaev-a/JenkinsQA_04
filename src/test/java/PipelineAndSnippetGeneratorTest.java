@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
@@ -129,6 +130,7 @@ public class PipelineAndSnippetGeneratorTest extends BaseTest {
         createNewPipeline("First Pipeline", "First test");
     }
 
+    @Ignore
     @AfterMethod
     protected void setDown() {
         deletePipeline("First Pipeline", "Delete Pipeline");
