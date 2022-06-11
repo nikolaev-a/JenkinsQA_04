@@ -19,7 +19,7 @@ public class DreamTeamJavaGroupTest extends BaseTest {
     }
 
     @Test
-    public void testTC_001_037_CreateNewFreestyleProject_AD() {
+    public void test_TC_001_037_CreateNewFreestyleProject_AD() {
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.id("name")).sendKeys(ITEMNAME);
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
