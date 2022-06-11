@@ -5,8 +5,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MultiConfigurationProjectTest extends BaseTest {
@@ -115,7 +113,5 @@ public class MultiConfigurationProjectTest extends BaseTest {
     }
 
     Assert.assertFalse(isBuildNowDisplayed);
-
-
   }
 }
