@@ -28,8 +28,8 @@ public class DreamTeamJavaGroupTest extends BaseTest {
         getDriver().findElement(By.id("name")).sendKeys(ITEMNAME);
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
         getDriver().findElement(By.id("ok-button")).click();
-        getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_APPLY_BUTTON)));
-        getDriver().findElement(By.id(CREATE_PROJECT_APPLY_BUTTON)).click();
+        //getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_APPLY_BUTTON)));
+        //getDriver().findElement(By.id(CREATE_PROJECT_APPLY_BUTTON)).click();
         getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_SAVE_BUTTON)));
         getDriver().findElement(By.id(CREATE_PROJECT_SAVE_BUTTON)).click();
         getWait20().until(ExpectedConditions.elementToBeClickable(By.xpath(DASHBOARD_BUTTON)));
