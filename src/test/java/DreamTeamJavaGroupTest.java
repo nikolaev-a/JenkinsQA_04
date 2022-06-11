@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -25,16 +24,15 @@ public class DreamTeamJavaGroupTest extends BaseTest {
 
     @Test
     public void test_TC_001_037_CreateNewFreestyleProject_AD() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         getDriver().findElement(By.className("task-link-text")).click();
         getDriver().findElement(By.id("name")).sendKeys(ITEMNAME);
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
         getDriver().findElement(By.id("ok-button")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_APPLY_BUTTON)));
+        getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_APPLY_BUTTON)));
         getDriver().findElement(By.id(CREATE_PROJECT_APPLY_BUTTON)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_SAVE_BUTTON)));
+        getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_SAVE_BUTTON)));
         getDriver().findElement(By.id(CREATE_PROJECT_SAVE_BUTTON)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(DASHBOARD_BUTTON)));
+        getWait20().until(ExpectedConditions.elementToBeClickable(By.xpath(DASHBOARD_BUTTON)));
         getDriver().findElement(By.xpath(DASHBOARD_BUTTON)).click();
         String temp = getDriver().findElement(By.id("job_" + ITEMNAME)).getText();
         Assert.assertTrue(temp.contains(ITEMNAME));
