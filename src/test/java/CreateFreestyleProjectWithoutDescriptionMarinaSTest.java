@@ -5,7 +5,7 @@ import runner.BaseTest;
 
 public class CreateFreestyleProjectWithoutDescriptionMarinaSTest extends BaseTest {
 
-    public final String freestyleProjectName = "MarinaTest";
+    public final String FreestyleProjectName = "MarinaTest";
 
     @Test
     public void CreateFreestyleProjectValidName() {
@@ -16,7 +16,7 @@ public class CreateFreestyleProjectWithoutDescriptionMarinaSTest extends BaseTes
                 By.xpath("//div[@id='side-panel']//span[@class='task-link-text']")).click();
         getDriver().findElement(
                         By.xpath("//div[@id='main-panel']//div[@class='add-item-name']/input"))
-                .sendKeys(freestyleProjectName);
+                .sendKeys(FreestyleProjectName);
         getDriver().findElement(
                 By.xpath("//div[@id='main-panel']//div[@class='col-md-offset-2 col-md-20']" +
                         "//ul[@class='j-item-options']//li[@tabindex='0']" +
