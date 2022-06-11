@@ -6,6 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MultiConfigurationProjectTest extends BaseTest {
   private final String NAME_FOLDER = "TestMultiConfigurationProject";
 
@@ -97,11 +100,22 @@ public class MultiConfigurationProjectTest extends BaseTest {
   @Test
   public void testBuildNowInDisabledProject_TC_045_002(){
     String nameTestedFolder = "disabledFolder";
+    boolean isBuildNowDisplayed = false;
 
     createMultiConfigFolder(nameTestedFolder);
     returnToMainPage();
     openProjectJob(nameTestedFolder);
+    getDriver().findElement(By.id("yui-gen1-button")).click();
+
+    List<WebElement> jobMenu = getDriver().findElements(By.xpath("//div[@id='tasks']//span[2]"));
+    for(WebElement menu : jobMenu){
+      if(menu.getText().contains("Build Now")){
+        isBuildNowDisplayed = true;
+      }
+    }
+
+    Assert.assertFalse(isBuildNowDisplayed);
+
 
   }
-
 }
