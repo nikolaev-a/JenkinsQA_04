@@ -86,7 +86,7 @@ public class EditBuildRRenameBuildCheckBuildInTimelineAndBuildHistoryTest extend
 
 
     @Test(description = "US_032 Rename Build")
-    public void testRenameBuild() throws InterruptedException {
+    public void testRenameBuild() {
         jobNameRes = checkJobName(jobName);
         createNewFreeStyleProject();
         renameJobAndAddDescriptionSaveIt();
@@ -158,12 +158,13 @@ public class EditBuildRRenameBuildCheckBuildInTimelineAndBuildHistoryTest extend
 
     public void deleteJob() {
         clickToJenkinsLogo();
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.id("jenkins-name-icon")));
         List<WebElement> listOfJobs = getDriver().findElements(By.xpath("//table[@id='projectstatus']//tbody//tr//td[3]//a"));
         if (listOfJobs.size() > 0) {
             Actions actions = new Actions(getDriver());
             for (WebElement elem : listOfJobs) {
                 actions.moveToElement(elem).click().build().perform();
-                getDriver().findElement(By.xpath("//span[text()='Delete Project']")).click();
+                getDriver().findElement(By.xpath("//div[@id='tasks']/div[7]")).click();
                 getDriver().switchTo().alert().accept();
             }
         }
