@@ -143,12 +143,12 @@ public class CreateFolderTest extends BaseTest {
         clickNewItem();
 
         getDriver().findElement(NAME).sendKeys(nameFolder);
+        clickFolderItem();
         WebElement actualErrorMessage1 = getWait20()
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("itemname-invalid")));
 
         Assert.assertEquals(actualErrorMessage1.getText(), expectedErrorMessage);
 
-        clickFolderItem();
         clickOKButton();
 
         String actualError = getDriver().findElement(By.xpath("//div[@id='main-panel']/h1")).getText();
