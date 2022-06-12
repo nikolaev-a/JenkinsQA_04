@@ -10,7 +10,6 @@ public class DreamTeamJavaGroupTest extends BaseTest {
     public static final String FOOTER_REST_API = "//div[@class='page-footer__links rest_api hidden-xs']";
     public static final String REST_API_PAGE_HEADER = "//div[@id='main-panel']/h1";
     public static final String ITEMNAME = "Valid item name" + (int) (Math.random() * 1000);
-    public static final String CREATE_PROJECT_APPLY_BUTTON = "yui-gen19-button";
     public static final String CREATE_PROJECT_SAVE_BUTTON = "//div[@class='bottom-sticker-inner']//button[@type='submit']";
     public static final String DASHBOARD_BUTTON = "//a[text()='Dashboard']";
 
@@ -28,8 +27,6 @@ public class DreamTeamJavaGroupTest extends BaseTest {
         getDriver().findElement(By.id("name")).sendKeys(ITEMNAME);
         getDriver().findElement(By.className("hudson_model_FreeStyleProject")).click();
         getDriver().findElement(By.id("ok-button")).click();
-        //getWait20().until(ExpectedConditions.elementToBeClickable(By.id(CREATE_PROJECT_APPLY_BUTTON)));
-        //getDriver().findElement(By.id(CREATE_PROJECT_APPLY_BUTTON)).click();
         getWait20().until(ExpectedConditions.elementToBeClickable(By.xpath(CREATE_PROJECT_SAVE_BUTTON)));
         getDriver().findElement(By.xpath(CREATE_PROJECT_SAVE_BUTTON)).click();
         getWait20().until(ExpectedConditions.elementToBeClickable(By.xpath(DASHBOARD_BUTTON)));
